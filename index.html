@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>远容的个人网页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #f0f0f0;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 标题样式 */
+        .header {
+            background: #2c3e50;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            transition: color 0.3s;
+        }
+
+        .header:hover {
+            color: #3498db;
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: block;
+            border: 3px solid #fff;
+        }
+
+        /* 内容卡片样式 */
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        /* 个人信息列表 */
+        dl {
+            display: grid;
+            grid-template-columns: max-content 1fr;
+            gap: 10px 20px;
+        }
+
+        dt {
+            font-weight: bold;
+            color: #34495e;
+        }
+
+        /* 联系方式链接 */
+        a {
+            color: #3498db;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px 0;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 30px;
+            transition: color 0.3s;
+        }
+
+        footer:hover {
+            color: #3498db;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <img src="https://jsd.20097747.xyz/gh/YuanRong1026/picx-images-hosting@master/1751718798570.sz8hoh1c9.webp" alt="头像" class="avatar">
+        <h1>远容</h1>
+    </header>
+
+    <section class="card">
+        <h2>关于我</h2>
+        <p>大家好，我是远容。这是我的个人网页，欢迎访问。这里会分享我的学习心得、生活趣事和各种兴趣爱好。我的网名是「远容esh」，寓意着追求远大理想同时保持包容心态。</p>
+    </section>
+
+    <section class="card">
+        <h2>联系方式</h2>
+        <p>
+            <a href="mailto:syinzicheng1386ys@outlook.com">📧 syinzicheng1386ys@outlook.com</a><br>
+            🐧 <a href="http://wpa.qq.com/msgrd?v=3&uin=1265740750&site=qq&menu=yes">1265740750</a>
+        </p>
+    </section>
+
+    <section class="card">
+        <h2>个人信息</h2>
+        <dl>
+            <dt>姓名：</dt><dd>远容</dd>
+            <dt>出生日期：</dt><dd>2009.10.26（农历九月初九）</dd>
+            <dt>性别：</dt><dd>男</dd>
+            <dt>职位：</dt><dd>学生</dd>
+            <dt>梦想：</dt><dd>心理学家、计算机数据科学家</dd>
+        </dl>
+    </section>
+
+    <footer>
+        <p>版权所有 © 2025 远容</p>
+    </footer>
+</body>
+</html>
