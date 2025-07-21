@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>远容esh | 个人简介</title>
+    <title>远容esh | 个人空间</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-         {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -14,26 +14,24 @@
         }
         
         :root {
-            --primary: #2962ff;
-            --secondary: #304ffe;
+            --primary: #5e35b1;
+            --secondary: #3949ab;
             --accent: #00e5ff;
-            --dark: #0a192f;
+            --dark: #121212;
             --light: #e0f7fa;
-            --card-bg: rgba(25, 35, 60, 0.9);
+            --card-bg: rgba(25, 25, 45, 0.9);
+            --nav-bg: rgba(15, 15, 35, 0.95);
             --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         body {
-            background: linear-gradient(135deg, #0a192f 0%, #1a237e 100%);
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
             color: var(--light);
             line-height: 1.7;
             min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow-x: hidden;
+            padding: 0;
             position: relative;
+            overflow-x: hidden;
         }
         
         body::before {
@@ -44,17 +42,105 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 10% 20%, rgba(41, 98, 255, 0.15) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(48, 79, 254, 0.15) 0%, transparent 20%);
-            z-index: -1;
+                radial-gradient(circle at 10% 20%, rgba(94, 53, 177, 0.15) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(57, 73, 171, 0.15) 0%, transparent 20%);
+            z-index: -2;
         }
         
-        .container {
-            max-width: 1000px;
+        /* 粒子背景 */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            margin: 0 auto;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(0, 229, 255, 0.5);
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0) scale(0.5); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-100vh) translateX(50px) scale(1.2); opacity: 0; }
+        }
+        
+        /* 导航栏 */
+        .navbar {
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(94, 53, 177, 0.4);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .logo i {
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
             position: relative;
-            z-index: 2;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* 主容器 */
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 100px auto 50px;
+            padding: 0 20px;
         }
         
         .profile-card {
@@ -66,7 +152,7 @@
             overflow: hidden;
             position: relative;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(41, 98, 255, 0.4);
+            border: 1px solid rgba(94, 53, 177, 0.4);
         }
         
         .header {
@@ -149,7 +235,7 @@
         }
         
         .bio {
-            background: rgba(30, 40, 70, 0.6);
+            background: rgba(30, 30, 50, 0.6);
             padding: 30px;
             border-radius: 20px;
             margin-bottom: 50px;
@@ -157,7 +243,7 @@
             line-height: 1.8;
             font-size: 1.2rem;
             color: #c5e3e6;
-            border: 1px solid rgba(41, 98, 255, 0.4);
+            border: 1px solid rgba(94, 53, 177, 0.4);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         
@@ -188,11 +274,11 @@
         }
         
         .contact-card {
-            background: rgba(35, 45, 75, 0.7);
+            background: rgba(35, 35, 55, 0.7);
             border-radius: 20px;
             padding: 30px;
             transition: var(--transition);
-            border: 1px solid rgba(41, 98, 255, 0.4);
+            border: 1px solid rgba(94, 53, 177, 0.4);
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -233,4 +319,277 @@
             margin: 0 auto 25px;
             font-size: 2rem;
             color: white;
-            bo
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+        }
+        
+        .contact-card:hover .contact-icon {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
+        }
+        
+        .contact-title {
+            font-size: 1.6rem;
+            color: var(--light);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .contact-info {
+            font-size: 1.1rem;
+            color: #a0d2d5;
+            margin-bottom: 25px;
+            word-break: break-all;
+            min-height: 60px;
+        }
+        
+        .contact-link {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(57, 73, 171, 0.4);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .contact-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(135deg, var(--accent), #00b8d4);
+            transition: width 0.5s ease;
+            z-index: -1;
+        }
+        
+        .contact-link:hover {
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.7);
+        }
+        
+        .contact-link:hover::before {
+            width: 100%;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            background: rgba(15, 15, 35, 0.6);
+            border-top: 1px solid rgba(94, 53, 177, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .header {
+                padding: 40px 20px 100px;
+            }
+            
+            .avatar-container {
+                width: 150px;
+                height: 150px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .content {
+                padding: 70px 20px 30px;
+            }
+            
+            .bio {
+                padding: 20px;
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+                margin: 40px 0 30px;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <i class="fas fa-stars"></i>
+            <span>远容esh</span>
+        </a>
+        <div class="nav-links">
+            <a href="#"><i class="fas fa-home"></i> 首页</a>
+            <a href="#"><i class="fas fa-blog"></i> 博客</a>
+            <a href="#"><i class="fas fa-project-diagram"></i> 项目</a>
+            <a href="#"><i class="fas fa-envelope"></i> 联系</a>
+        </div>
+    </nav>
+
+    <!-- 主容器 -->
+    <div class="container">
+        <div class="profile-card">
+            <div class="header">
+                <div class="avatar-container">
+                    <div class="avatar-frame"></div>
+                    <div class="avatar"></div>
+                </div>
+                <h1>远容esh</h1>
+                <p class="tagline">开发者 · 技术探索者 · 创新者</p>
+            </div>
+            
+            <div class="content">
+                <div class="bio">
+                    <p>你好！我是远容esh，一名充满热情的技术开发者和创新者。</p>
+                    <p>我专注于前沿技术的探索与实践，致力于通过代码创造价值、解决问题。</p>
+                    <p>我相信技术的力量可以改变世界，也希望通过分享和交流，与志同道合的人一起成长。</p>
+                </div>
+                
+                <h2 class="section-title">联系我</h2>
+                
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fab fa-zhihu"></i>
+                        </div>
+                        <h3 class="contact-title">知乎</h3>
+                        <p class="contact-info">分享技术观点与见解</p>
+                        <a href="https://www.zhihu.com/people/yuanrongesh" class="contact-link">访问我的知乎</a>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fab fa-weibo"></i>
+                        </div>
+                        <h3 class="contact-title">微博</h3>
+                        <p class="contact-info">关注我的日常分享</p>
+                        <a href="https://weibo.com/u/7939757133" class="contact-link">访问我的微博</a>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3 class="contact-title">电子邮件</h3>
+                        <p class="contact-info">syinzicheng1386ys@outlook.com<br>zicheng_0114@qq.com</p>
+                        <a href="mailto:syinzicheng1386ys@outlook.com" class="contact-link">发送邮件</a>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <h3 class="contact-title">GitHub</h3>
+                        <p class="contact-info">查看我的开源项目与代码</p>
+                        <a href="https://github.com/YuanRong1026" class="contact-link">访问GitHub</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer">
+                <p>© 2023 远容esh | 用代码创造无限可能</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 创建粒子背景
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // 随机属性
+                const size = Math.random() * 8 + 2;
+                const posX = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = Math.random() * 10 + 15;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.bottom = `-${size}px`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                // 随机颜色
+                const colors = [
+                    'rgba(0, 229, 255, 0.7)',
+                    'rgba(94, 53, 177, 0.7)',
+                    'rgba(57, 73, 171, 0.7)'
+                ];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // 添加卡片动画
+        function animateCards() {
+            const contactCards = document.querySelectorAll('.contact-card');
+            
+            contactCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(30px)';
+                    card.style.transition = 'all 0.8s ease';
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 200);
+            });
+        }
+        
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            animateCards();
+            
+            // 导航栏滚动效果
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.style.backgroundColor = 'rgba(15, 15, 35, 0.98)';
+                    navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.4)';
+                } else {
+                    navbar.style.backgroundColor = 'var(--nav-bg)';
+                    navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
