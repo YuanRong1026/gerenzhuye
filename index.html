@@ -19,40 +19,86 @@
             --accent: #00e5ff;
             --dark: #121212;
             --light: #e0f7fa;
-            --card-bg: rgba(25, 25, 45, 0.9);
-            --transition: all 0.3s ease;
+            --card-bg: rgba(25, 25, 45, 0.85);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         body {
             background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
             color: var(--light);
-            line-height: 1.6;
+            line-height: 1.7;
             min-height: 100vh;
             padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(94, 53, 177, 0.15) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(57, 73, 171, 0.15) 0%, transparent 20%);
+            z-index: -1;
+        }
+        
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(0, 229, 255, 0.5);
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0) scale(0.5); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-100vh) translateX(50px) scale(1.2); opacity: 0; }
         }
         
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             width: 100%;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
         
         .profile-card {
             background: var(--card-bg);
-            border-radius: 20px;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            border-radius: 25px;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(0, 229, 255, 0.2);
             overflow: hidden;
+            position: relative;
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(94, 53, 177, 0.4);
         }
         
         .header {
             background: linear-gradient(90deg, var(--primary), var(--secondary));
-            padding: 50px 30px 100px;
+            padding: 60px 30px 120px;
             text-align: center;
             position: relative;
+            overflow: hidden;
         }
         
         .header::after {
@@ -61,71 +107,99 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 50px;
+            height: 60px;
             background: var(--card-bg);
-            border-radius: 20px 20px 0 0;
+            border-radius: 25px 25px 0 0;
             transform: translateY(50%);
         }
         
-        .avatar {
-            width: 150px;
-            height: 150px;
+        .avatar-container {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 25px;
+            z-index: 2;
+        }
+        
+        .avatar-frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
             border: 4px solid var(--accent);
-            margin: 0 auto 20px;
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.6);
+            animation: pulse 4s infinite alternate;
+        }
+        
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
             background-image: url('https://youke1.picui.cn/s1/2025/07/20/687d10bb2e5f3.png');
             background-size: cover;
             background-position: center;
-            box-shadow: 0 0 30px rgba(0, 229, 255, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 20px rgba(0, 229, 255, 0.6); }
+            100% { box-shadow: 0 0 40px rgba(0, 229, 255, 0.9); }
         }
         
         h1 {
             color: white;
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 10px;
-            font-weight: 600;
-            text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+            font-weight: 700;
+            text-shadow: 0 0 15px rgba(0, 229, 255, 0.7);
+            letter-spacing: 1px;
         }
         
         .tagline {
             color: rgba(255, 255, 255, 0.9);
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             max-width: 600px;
             margin: 0 auto;
+            font-weight: 300;
         }
         
         .content {
-            padding: 80px 40px 40px;
-            margin-top: -60px;
+            padding: 80px 50px 50px;
             position: relative;
+            z-index: 2;
         }
         
         .bio {
             background: rgba(30, 30, 50, 0.6);
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 40px;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 50px;
             text-align: center;
             line-height: 1.8;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: #c5e3e6;
-            border: 1px solid rgba(94, 53, 177, 0.3);
+            border: 1px solid rgba(94, 53, 177, 0.4);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         
         .section-title {
             text-align: center;
-            margin: 40px 0 30px;
+            margin: 50px 0 40px;
             position: relative;
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             color: var(--accent);
             font-weight: 600;
+            letter-spacing: 1px;
         }
         
         .section-title::after {
             content: '';
             display: block;
-            width: 60px;
-            height: 3px;
+            width: 80px;
+            height: 4px;
             background: linear-gradient(to right, var(--primary), var(--accent));
             margin: 15px auto;
             border-radius: 2px;
@@ -133,126 +207,154 @@
         
         .contact-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
         
         .contact-card {
             background: rgba(35, 35, 55, 0.7);
-            border-radius: 15px;
-            padding: 25px;
+            border-radius: 20px;
+            padding: 30px;
             transition: var(--transition);
-            border: 1px solid rgba(94, 53, 177, 0.3);
+            border: 1px solid rgba(94, 53, 177, 0.4);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+        
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s ease;
         }
         
         .contact-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
             border-color: var(--accent);
         }
         
+        .contact-card:hover::before {
+            transform: scaleX(1);
+        }
+        
         .contact-icon {
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 1.8rem;
+            margin: 0 auto 25px;
+            font-size: 2rem;
             color: white;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+        }
+        
+        .contact-card:hover .contact-icon {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
         }
         
         .contact-title {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             color: var(--light);
             margin-bottom: 15px;
-            font-weight: 500;
+            font-weight: 600;
         }
         
         .contact-info {
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: #a0d2d5;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             word-break: break-all;
+            min-height: 60px;
         }
         
         .contact-link {
             display: inline-block;
-            padding: 10px 25px;
+            padding: 12px 30px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             text-decoration: none;
             border-radius: 50px;
             font-weight: 500;
             transition: var(--transition);
-            box-shadow: 0 4px 10px rgba(57, 73, 171, 0.4);
+            box-shadow: 0 5px 15px rgba(57, 73, 171, 0.4);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .contact-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(135deg, var(--accent), #00b8d4);
+            transition: width 0.5s ease;
+            z-index: -1;
         }
         
         .contact-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 7px 15px rgba(57, 73, 171, 0.6);
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.7);
         }
         
-        .blog-button {
-            display: block;
-            width: 200px;
-            margin: 40px auto 20px;
-            padding: 12px 30px;
-            background: linear-gradient(135deg, var(--accent), #00b8d4);
-            color: #0f172a;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: var(--transition);
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 229, 255, 0.4);
-        }
-        
-        .blog-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 229, 255, 0.6);
+        .contact-link:hover::before {
+            width: 100%;
         }
         
         .footer {
             text-align: center;
-            padding: 25px;
+            padding: 30px;
             color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
+            font-size: 1rem;
             background: rgba(15, 15, 35, 0.6);
-            border-top: 1px solid rgba(94, 53, 177, 0.3);
+            border-top: 1px solid rgba(94, 53, 177, 0.4);
         }
         
         @media (max-width: 768px) {
             .header {
-                padding: 30px 20px 80px;
+                padding: 40px 20px 100px;
             }
             
-            .avatar {
-                width: 120px;
-                height: 120px;
+            .avatar-container {
+                width: 150px;
+                height: 150px;
             }
             
             h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
             }
             
             .content {
                 padding: 70px 20px 30px;
-                margin-top: -50px;
             }
             
             .bio {
                 padding: 20px;
-                font-size: 1rem;
+                font-size: 1.1rem;
             }
             
             .section-title {
-                font-size: 1.5rem;
+                font-size: 1.8rem;
+                margin: 40px 0 30px;
             }
             
             .contact-grid {
@@ -262,22 +364,27 @@
     </style>
 </head>
 <body>
+    <div class="particles" id="particles"></div>
+    
     <div class="container">
         <div class="profile-card">
             <div class="header">
-                <div class="avatar"></div>
+                <div class="avatar-container">
+                    <div class="avatar-frame"></div>
+                    <div class="avatar"></div>
+                </div>
                 <h1>远容esh</h1>
-                <p class="tagline">开发者 · 技术探索者 · 内容创作者</p>
+                <p class="tagline">开发者 · 技术探索者 · 创新者</p>
             </div>
             
             <div class="content">
                 <div class="bio">
-                    <p>你好！我是远容esh，一名热爱技术的开发者。</p>
-                    <p>我专注于前沿技术的探索与实践，喜欢通过博客分享我的学习和经验。</p>
-                    <p>欢迎通过以下方式与我联系或关注我的动态。</p>
+                    <p>你好！我是远容esh，一名充满热情的技术开发者和创新者。</p>
+                    <p>我专注于前沿技术的探索与实践，致力于通过代码创造价值、解决问题。</p>
+                    <p>我相信技术的力量可以改变世界，也希望通过分享和交流，与志同道合的人一起成长。</p>
                 </div>
                 
-                <h2 class="section-title">联系方式</h2>
+                <h2 class="section-title">联系我</h2>
                 
                 <div class="contact-grid">
                     <div class="contact-card">
@@ -286,16 +393,7 @@
                         </div>
                         <h3 class="contact-title">知乎</h3>
                         <p class="contact-info">分享技术观点与见解</p>
-                        <a href="https://www.zhihu.com/people/yuanrongesh" class="contact-link">访问知乎主页</a>
-                    </div>
-                    
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fab fa-weibo"></i>
-                        </div>
-                        <h3 class="contact-title">微博</h3>
-                        <p class="contact-info">关注我的日常动态</p>
-                        <a href="https://weibo.com/u/7939757133" class="contact-link">访问微博主页</a>
+                        <a href="https://www.zhihu.com/people/yuanrongesh" class="contact-link">访问我的知乎</a>
                     </div>
                     
                     <div class="contact-card">
@@ -312,39 +410,93 @@
                             <i class="fab fa-github"></i>
                         </div>
                         <h3 class="contact-title">GitHub</h3>
-                        <p class="contact-info">查看我的开源项目</p>
+                        <p class="contact-info">查看我的开源项目与代码</p>
                         <a href="https://github.com/YuanRong1026" class="contact-link">访问GitHub</a>
                     </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fab fa-twitter"></i>
+                        </div>
+                        <h3 class="contact-title">X (Twitter)</h3>
+                        <p class="contact-info">关注我的最新动态</p>
+                        <a href="https://x.com/yuanrong_esh" class="contact-link">访问X主页</a>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fab fa-facebook"></i>
+                        </div>
+                        <h3 class="contact-title">Facebook</h3>
+                        <p class="contact-info">连接与交流</p>
+                        <a href="https://www.facebook.com/profile.php?id=61578352927032&mibextid=ZbWKwL" class="contact-link">访问Facebook</a>
+                    </div>
                 </div>
-                
-                <a href="https://blog.51733074.xyz" class="blog-button">
-                    <i class="fas fa-external-link-alt"></i> 点击进入博客
-                </a>
             </div>
             
             <div class="footer">
-                <p>© 2023 远容esh | 用代码创造价值</p>
+                <p>© 2023 远容esh | 用代码创造无限可能</p>
             </div>
         </div>
     </div>
     
     <script>
-        // 添加简单的动画效果
-        document.addEventListener('DOMContentLoaded', function() {
+        // 创建粒子背景
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // 随机属性
+                const size = Math.random() * 8 + 2;
+                const posX = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = Math.random() * 10 + 15;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.bottom = `-${size}px`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                // 随机颜色
+                const colors = [
+                    'rgba(0, 229, 255, 0.7)',
+                    'rgba(94, 53, 177, 0.7)',
+                    'rgba(57, 73, 171, 0.7)'
+                ];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // 添加卡片动画
+        function animateCards() {
             const contactCards = document.querySelectorAll('.contact-card');
             
             contactCards.forEach((card, index) => {
                 setTimeout(() => {
                     card.style.opacity = '0';
-                    card.style.transform = 'translateY(20px)';
-                    card.style.transition = 'all 0.5s ease';
+                    card.style.transform = 'translateY(30px)';
+                    card.style.transition = 'all 0.8s ease';
                     
                     setTimeout(() => {
                         card.style.opacity = '1';
                         card.style.transform = 'translateY(0)';
                     }, 100);
-                }, index * 100);
+                }, index * 200);
             });
+        }
+        
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            animateCards();
         });
     </script>
 </body>
