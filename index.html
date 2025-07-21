@@ -20,49 +20,31 @@
             --dark: #121212;
             --light: #e0f7fa;
             --card-bg: rgba(25, 25, 45, 0.9);
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --transition: all 0.3s ease;
         }
         
         body {
             background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
             color: var(--light);
-            line-height: 1.7;
+            line-height: 1.6;
             min-height: 100vh;
             padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
-        }
-        
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(94, 53, 177, 0.15) 0%, transparent 30%),
-                radial-gradient(circle at 80% 70%, rgba(57, 73, 171, 0.15) 0%, transparent 30%);
-            z-index: -1;
         }
         
         .container {
-            max-width: 900px;
+            max-width: 800px;
             width: 100%;
             margin: 0 auto;
         }
         
         .profile-card {
             background: var(--card-bg);
-            border-radius: 25px;
-            box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.5),
-                0 0 30px rgba(0, 229, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
             overflow: hidden;
-            position: relative;
-            backdrop-filter: blur(8px);
             border: 1px solid rgba(94, 53, 177, 0.4);
         }
         
@@ -79,54 +61,30 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 60px;
+            height: 50px;
             background: var(--card-bg);
-            border-radius: 25px 25px 0 0;
+            border-radius: 20px 20px 0 0;
             transform: translateY(50%);
         }
         
-        .avatar-container {
-            position: relative;
-            width: 160px;
-            height: 160px;
-            margin: 0 auto 25px;
-            z-index: 2;
-        }
-        
-        .avatar-frame {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        .avatar {
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             border: 4px solid var(--accent);
-            box-shadow: 0 0 25px rgba(0, 229, 255, 0.6);
-            animation: pulse 4s infinite alternate;
-        }
-        
-        .avatar {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
+            margin: 0 auto 20px;
             background-image: url('https://youke1.picui.cn/s1/2025/07/20/687d10bb2e5f3.png');
             background-size: cover;
             background-position: center;
-            position: relative;
-            z-index: 1;
-        }
-        
-        @keyframes pulse {
-            0% { box-shadow: 0 0 15px rgba(0, 229, 255, 0.6); }
-            100% { box-shadow: 0 0 30px rgba(0, 229, 255, 0.9); }
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.5);
         }
         
         h1 {
             color: white;
             font-size: 2.5rem;
             margin-bottom: 10px;
-            font-weight: 700;
-            text-shadow: 0 0 10px rgba(0, 229, 255, 0.7);
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
         }
         
         .tagline {
@@ -134,13 +92,12 @@
             font-size: 1.2rem;
             max-width: 600px;
             margin: 0 auto;
-            font-weight: 300;
         }
         
         .content {
             padding: 80px 40px 40px;
+            margin-top: -60px;
             position: relative;
-            z-index: 2;
         }
         
         .bio {
@@ -152,7 +109,7 @@
             line-height: 1.8;
             font-size: 1.1rem;
             color: #c5e3e6;
-            border: 1px solid rgba(94, 53, 177, 0.4);
+            border: 1px solid rgba(94, 53, 177, 0.3);
         }
         
         .section-title {
@@ -170,13 +127,13 @@
             width: 60px;
             height: 3px;
             background: linear-gradient(to right, var(--primary), var(--accent));
-            margin: 10px auto;
+            margin: 15px auto;
             border-radius: 2px;
         }
         
         .contact-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 25px;
         }
         
@@ -185,33 +142,14 @@
             border-radius: 15px;
             padding: 25px;
             transition: var(--transition);
-            border: 1px solid rgba(94, 53, 177, 0.4);
+            border: 1px solid rgba(94, 53, 177, 0.3);
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .contact-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(to right, var(--primary), var(--accent));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.5s ease;
         }
         
         .contact-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             border-color: var(--accent);
-        }
-        
-        .contact-card:hover::before {
-            transform: scaleX(1);
         }
         
         .contact-icon {
@@ -225,19 +163,14 @@
             margin: 0 auto 20px;
             font-size: 1.8rem;
             color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: var(--transition);
-        }
-        
-        .contact-card:hover .contact-icon {
-            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         
         .contact-title {
             font-size: 1.4rem;
             color: var(--light);
             margin-bottom: 15px;
-            font-weight: 600;
+            font-weight: 500;
         }
         
         .contact-info {
@@ -256,47 +189,33 @@
             border-radius: 50px;
             font-weight: 500;
             transition: var(--transition);
-            box-shadow: 0 5px 15px rgba(57, 73, 171, 0.3);
+            box-shadow: 0 4px 10px rgba(57, 73, 171, 0.4);
         }
         
         .contact-link:hover {
-            background: linear-gradient(135deg, var(--accent), #00b8d4);
-            box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(57, 73, 171, 0.6);
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
         }
         
-        .blog-link {
+        .blog-button {
             display: block;
-            text-align: center;
-            margin-top: 40px;
-            padding: 15px;
-            background: rgba(30, 30, 50, 0.6);
-            border-radius: 10px;
-            transition: var(--transition);
-            border: 1px solid rgba(94, 53, 177, 0.4);
-        }
-        
-        .blog-link:hover {
-            background: rgba(94, 53, 177, 0.3);
-            border-color: var(--accent);
-        }
-        
-        .blog-link a {
-            color: var(--accent);
+            width: 200px;
+            margin: 40px auto 20px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--accent), #00b8d4);
+            color: #0f172a;
             text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .blog-link a i {
+            border-radius: 50px;
+            font-weight: 600;
             transition: var(--transition);
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 229, 255, 0.4);
         }
         
-        .blog-link:hover a i {
-            transform: translateX(5px);
+        .blog-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 229, 255, 0.6);
         }
         
         .footer {
@@ -305,17 +224,17 @@
             color: rgba(255, 255, 255, 0.7);
             font-size: 0.9rem;
             background: rgba(15, 15, 35, 0.6);
-            border-top: 1px solid rgba(94, 53, 177, 0.4);
+            border-top: 1px solid rgba(94, 53, 177, 0.3);
         }
         
         @media (max-width: 768px) {
             .header {
-                padding: 40px 20px 80px;
+                padding: 30px 20px 80px;
             }
             
-            .avatar-container {
-                width: 140px;
-                height: 140px;
+            .avatar {
+                width: 120px;
+                height: 120px;
             }
             
             h1 {
@@ -324,6 +243,16 @@
             
             .content {
                 padding: 70px 20px 30px;
+                margin-top: -50px;
+            }
+            
+            .bio {
+                padding: 20px;
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
             }
             
             .contact-grid {
@@ -336,21 +265,19 @@
     <div class="container">
         <div class="profile-card">
             <div class="header">
-                <div class="avatar-container">
-                    <div class="avatar-frame"></div>
-                    <div class="avatar"></div>
-                </div>
+                <div class="avatar"></div>
                 <h1>远容esh</h1>
-                <p class="tagline">开发者 · 技术探索者 · 创新者</p>
+                <p class="tagline">开发者 · 技术探索者 · 内容创作者</p>
             </div>
             
             <div class="content">
                 <div class="bio">
-                    <p>你好！我是远容esh，一名充满热情的技术开发者和创新者。</p>
-                    <p>我专注于前沿技术的探索与实践，致力于通过代码创造价值、解决问题。</p>
+                    <p>你好！我是远容esh，一名热爱技术的开发者。</p>
+                    <p>我专注于前沿技术的探索与实践，喜欢通过博客分享我的学习和经验。</p>
+                    <p>欢迎通过以下方式与我联系或关注我的动态。</p>
                 </div>
                 
-                <h2 class="section-title">联系我</h2>
+                <h2 class="section-title">联系方式</h2>
                 
                 <div class="contact-grid">
                     <div class="contact-card">
@@ -359,7 +286,16 @@
                         </div>
                         <h3 class="contact-title">知乎</h3>
                         <p class="contact-info">分享技术观点与见解</p>
-                        <a href="https://www.zhihu.com/people/yuanrongesh" class="contact-link">访问我的知乎</a>
+                        <a href="https://www.zhihu.com/people/yuanrongesh" class="contact-link">访问知乎主页</a>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fab fa-weibo"></i>
+                        </div>
+                        <h3 class="contact-title">微博</h3>
+                        <p class="contact-info">关注我的日常动态</p>
+                        <a href="https://weibo.com/u/7939757133" class="contact-link">访问微博主页</a>
                     </div>
                     
                     <div class="contact-card">
@@ -376,36 +312,24 @@
                             <i class="fab fa-github"></i>
                         </div>
                         <h3 class="contact-title">GitHub</h3>
-                        <p class="contact-info">查看我的开源项目与代码</p>
+                        <p class="contact-info">查看我的开源项目</p>
                         <a href="https://github.com/YuanRong1026" class="contact-link">访问GitHub</a>
-                    </div>
-                    
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fab fa-weibo"></i>
-                        </div>
-                        <h3 class="contact-title">微博</h3>
-                        <p class="contact-info">关注我的日常分享</p>
-                        <a href="https://weibo.com/u/7939757133" class="contact-link">访问微博</a>
                     </div>
                 </div>
                 
-                <div class="blog-link">
-                    <a href="https://blog.51733074.xyz">
-                        <span>点击进入我的博客</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
+                <a href="https://blog.51733074.xyz" class="blog-button">
+                    <i class="fas fa-external-link-alt"></i> 点击进入博客
+                </a>
             </div>
             
             <div class="footer">
-                <p>© 2023 远容esh | 用代码创造无限可能</p>
+                <p>© 2023 远容esh | 用代码创造价值</p>
             </div>
         </div>
     </div>
     
     <script>
-        // 添加卡片动画
+        // 添加简单的动画效果
         document.addEventListener('DOMContentLoaded', function() {
             const contactCards = document.querySelectorAll('.contact-card');
             
@@ -413,13 +337,13 @@
                 setTimeout(() => {
                     card.style.opacity = '0';
                     card.style.transform = 'translateY(20px)';
-                    card.style.transition = 'all 0.6s ease';
+                    card.style.transition = 'all 0.5s ease';
                     
                     setTimeout(() => {
                         card.style.opacity = '1';
                         card.style.transform = 'translateY(0)';
                     }, 100);
-                }, index * 150);
+                }, index * 100);
             });
         });
     </script>
