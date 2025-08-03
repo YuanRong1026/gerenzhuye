@@ -14,32 +14,29 @@
         }
         
         :root {
-            --primary: #5e35b1;
-            --secondary: #3949ab;
+            --primary: #7e57c2;
+            --secondary: #42a5f5;
             --accent: #00e5ff;
-            --accent-light: #6effff;
-            --dark: #0a0a1a;
-            --light: #e0f7fa;
-            --card-bg: rgba(25, 25, 45, 0.95);
+            --light: #ffffff;
+            --dark: #333;
             --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         body {
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-            color: var(--light);
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            color: var(--dark);
             line-height: 1.6;
             min-height: 100vh;
-            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow-x: hidden;
             position: relative;
+            padding: 20px;
         }
         
-        /* 粒子背景 */
         .particles {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -51,7 +48,7 @@
         .particle {
             position: absolute;
             border-radius: 50%;
-            background: rgba(0, 229, 255, 0.6);
+            background: rgba(126, 87, 194, 0.2);
             animation: float 15s infinite linear;
         }
         
@@ -62,82 +59,100 @@
             100% { transform: translateY(-100vh) translateX(50px) scale(1.2); opacity: 0; }
         }
         
-        /* 背景光效 */
         .glow {
-            position: absolute;
-            width: 400px;
-            height: 400px;
+            position: fixed;
+            width: 50vw;
+            height: 50vw;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(94, 53, 177, 0.2) 0%, transparent 70%);
-            filter: blur(60px);
+            background: radial-gradient(circle, rgba(126, 87, 194, 0.15) 0%, transparent 70%);
+            filter: blur(100px);
             z-index: -1;
         }
         
         .glow-1 {
-            top: -200px;
-            right: -200px;
-            background: radial-gradient(circle, rgba(0, 229, 255, 0.3) 0%, transparent 70%);
+            top: -25vw;
+            right: -25vw;
+            background: radial-gradient(circle, rgba(0, 229, 255, 0.15) 0%, transparent 70%);
         }
         
         .glow-2 {
-            bottom: -150px;
-            left: -150px;
-            background: radial-gradient(circle, rgba(57, 73, 171, 0.3) 0%, transparent 70%);
+            bottom: -20vw;
+            left: -20vw;
+            background: radial-gradient(circle, rgba(66, 165, 245, 0.15) 0%, transparent 70%);
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             width: 100%;
             margin: 0 auto;
             position: relative;
             z-index: 2;
             padding: 15px;
+            animation: fadeInUp 0.8s ease-out forwards;
         }
         
-        .profile-card {
-            background: var(--card-bg);
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .profile {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.92);
             border-radius: 25px;
-            box-shadow: 
-                0 15px 50px rgba(0, 0, 0, 0.5),
-                0 0 30px rgba(0, 229, 255, 0.2);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
             overflow: hidden;
             position: relative;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(94, 53, 177, 0.4);
-            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: var(--transition);
         }
         
-        .profile-card:hover {
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 229, 255, 0.4);
+        .profile:hover {
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
         }
         
-        .header {
+        .profile-header {
             background: linear-gradient(90deg, var(--primary), var(--secondary));
-            padding: 60px 30px 120px;
+            padding: 80px 30px 150px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
         }
         
-        .header::after {
+        .profile-header::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 60px;
-            background: var(--card-bg);
+            height: 80px;
+            background: rgba(255, 255, 255, 0.92);
             border-radius: 25px 25px 0 0;
             transform: translateY(50%);
+            backdrop-filter: blur(5px);
         }
         
-        /* 头像动画 */
         .avatar-container {
             position: relative;
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 25px;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 30px;
             z-index: 2;
+            animation: floatAvatar 6s ease-in-out infinite alternate;
+        }
+        
+        @keyframes floatAvatar {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0); }
         }
         
         .avatar-frame {
@@ -147,8 +162,8 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            border: 4px solid var(--accent);
-            box-shadow: 0 0 30px rgba(0, 229, 255, 0.6);
+            border: 5px solid var(--accent);
+            box-shadow: 0 0 40px rgba(0, 229, 255, 0.5);
             animation: pulse 4s infinite alternate;
         }
         
@@ -162,6 +177,7 @@
             position: relative;
             z-index: 1;
             transition: transform 0.5s ease;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
         }
         
         .avatar-container:hover .avatar {
@@ -169,8 +185,8 @@
         }
         
         @keyframes pulse {
-            0% { box-shadow: 0 0 20px rgba(0, 229, 255, 0.6); }
-            100% { box-shadow: 0 0 40px rgba(0, 229, 255, 0.9); }
+            0% { box-shadow: 0 0 25px rgba(0, 229, 255, 0.4); }
+            100% { box-shadow: 0 0 50px rgba(0, 229, 255, 0.7); }
         }
         
         @keyframes float-up {
@@ -180,168 +196,249 @@
         
         h1 {
             color: white;
-            font-size: 3rem;
-            margin-bottom: 10px;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
             font-weight: 700;
-            text-shadow: 0 0 15px rgba(0, 229, 255, 0.7);
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
             letter-spacing: 1px;
             animation: float-up 0.8s ease-out forwards;
             opacity: 0;
         }
         
         .tagline {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1.4rem;
-            max-width: 600px;
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.7rem;
+            max-width: 700px;
             margin: 0 auto;
             font-weight: 300;
             animation: float-up 0.8s ease-out 0.2s forwards;
             opacity: 0;
         }
         
-        .content {
-            padding: 80px 50px 50px;
+        .profile-content {
+            padding: 110px 60px 60px;
             position: relative;
             z-index: 2;
         }
         
-        .bio {
-            background: rgba(30, 30, 50, 0.6);
-            padding: 30px;
-            border-radius: 20px;
-            margin-bottom: 50px;
+        .bio-section {
             text-align: center;
-            line-height: 1.8;
-            font-size: 1.2rem;
-            color: #c5e3e6;
-            border: 1px solid rgba(94, 53, 177, 0.4);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            margin: 0 auto 70px;
+            padding: 40px 0;
+            border-bottom: 2px dashed rgba(126, 87, 194, 0.2);
+        }
+        
+        .bio {
+            font-size: 1.4rem;
+            line-height: 1.9;
+            color: #444;
             animation: float-up 0.8s ease-out 0.4s forwards;
             opacity: 0;
         }
         
+        .info-container {
+            display: flex;
+            gap: 50px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 992px) {
+            .info-container {
+                flex-direction: column;
+                gap: 40px;
+            }
+        }
+        
+        .contact-section, .social-section {
+            flex: 1;
+            padding: 40px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(5px);
+            transition: var(--transition);
+            animation: float-up 0.8s ease-out forwards;
+            opacity: 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+        
+        .contact-section { animation-delay: 0.5s; }
+        .social-section { animation-delay: 0.6s; }
+        
+        .contact-section:hover, .social-section:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        
         .section-title {
             text-align: center;
-            margin: 50px 0 40px;
+            margin: 0 0 40px;
             position: relative;
-            font-size: 2.2rem;
-            color: var(--accent);
+            font-size: 2.5rem;
+            color: var(--primary);
             font-weight: 600;
             letter-spacing: 1px;
-            animation: float-up 0.8s ease-out 0.6s forwards;
-            opacity: 0;
         }
         
         .section-title::after {
             content: '';
             display: block;
-            width: 80px;
-            height: 4px;
+            width: 100px;
+            height: 5px;
             background: linear-gradient(to right, var(--primary), var(--accent));
-            margin: 15px auto;
-            border-radius: 2px;
+            margin: 20px auto;
+            border-radius: 3px;
         }
         
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        .contact-list {
+            display: flex;
+            flex-direction: column;
             gap: 30px;
         }
         
-        .contact-card {
-            background: rgba(35, 35, 55, 0.7);
-            border-radius: 20px;
-            padding: 30px;
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.6);
             transition: var(--transition);
-            border: 1px solid rgba(94, 53, 177, 0.4);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(5px);
-            transform: translateY(30px);
-            opacity: 0;
-            animation: float-up 0.8s ease-out forwards;
         }
         
-        .contact-card:nth-child(1) { animation-delay: 0.7s; }
-        .contact-card:nth-child(2) { animation-delay: 0.8s; }
-        .contact-card:nth-child(3) { animation-delay: 0.9s; }
-        .contact-card:nth-child(4) { animation-delay: 1.0s; }
-        
-        .contact-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(to right, var(--primary), var(--accent));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.6s ease;
-        }
-        
-        .contact-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-            border-color: var(--accent);
-        }
-        
-        .contact-card:hover::before {
-            transform: scaleX(1);
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateX(10px);
         }
         
         .contact-icon {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        .contact-item:hover .contact-icon {
+            transform: scale(1.1);
+        }
+        
+        .contact-info {
+            flex: 1;
+        }
+        
+        .contact-title {
+            font-size: 1.5rem;
+            color: var(--dark);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .contact-detail {
+            font-size: 1.25rem;
+            color: #555;
+        }
+        
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .social-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .social-card {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            padding: 35px 30px;
+            text-align: center;
+            transition: var(--transition);
+            animation: fadeIn 0.5s ease-out forwards;
+            opacity: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .social-card:nth-child(1) { animation-delay: 0.7s; }
+        .social-card:nth-child(2) { animation-delay: 0.8s; }
+        .social-card:nth-child(3) { animation-delay: 0.9s; }
+        .social-card:nth-child(4) { animation-delay: 1.0s; }
+        
+        .social-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .social-icon {
+            width: 90px;
+            height: 90px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 25px;
-            font-size: 2rem;
+            font-size: 2.5rem;
             color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
             transition: var(--transition);
         }
         
-        .contact-card:hover .contact-icon {
-            transform: scale(1.1) rotateY(360deg);
-            box-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
+        .social-card:hover .social-icon {
+            transform: scale(1.1);
         }
         
-        .contact-title {
-            font-size: 1.6rem;
-            color: var(--light);
-            margin-bottom: 15px;
+        .social-title {
+            font-size: 1.7rem;
+            color: var(--dark);
+            margin-bottom: 20px;
             font-weight: 600;
         }
         
-        .contact-info {
-            font-size: 1.1rem;
-            color: #a0d2d5;
-            margin-bottom: 25px;
-            word-break: break-all;
-            min-height: 60px;
+        .social-desc {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 30px;
+            flex-grow: 1;
         }
         
-        .contact-link {
+        .social-link {
             display: inline-block;
-            padding: 12px 30px;
+            padding: 15px 35px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             text-decoration: none;
             border-radius: 50px;
             font-weight: 500;
             transition: var(--transition);
-            box-shadow: 0 5px 15px rgba(57, 73, 171, 0.4);
+            box-shadow: 0 8px 20px rgba(66, 165, 245, 0.4);
             position: relative;
             overflow: hidden;
             z-index: 1;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
         }
         
-        .contact-link::before {
+        .social-link::before {
             content: '';
             position: absolute;
             top: 0;
@@ -353,180 +450,36 @@
             z-index: -1;
         }
         
-        .contact-link:hover {
-            box-shadow: 0 0 25px rgba(0, 229, 255, 0.7);
+        .social-link:hover {
+            box-shadow: 0 0 30px rgba(126, 87, 194, 0.5);
         }
         
-        .contact-link:hover::before {
+        .social-link:hover::before {
             width: 100%;
-        }
-        
-        .blog-button {
-            display: block;
-            width: 300px;
-            margin: 50px auto 20px;
-            padding: 15px 30px;
-            background: linear-gradient(135deg, var(--accent), #00b8d4);
-            color: #0f172a;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: var(--transition);
-            text-align: center;
-            box-shadow: 0 5px 25px rgba(0, 229, 255, 0.6);
-            font-size: 1.2rem;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            transform: translateY(30px);
-            opacity: 0;
-            animation: float-up 0.8s ease-out 1.1s forwards;
-        }
-        
-        .blog-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #00b8d4, var(--accent));
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            z-index: -1;
-        }
-        
-        .blog-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 35px rgba(0, 229, 255, 0.8);
-        }
-        
-        .blog-button:hover::before {
-            opacity: 1;
         }
         
         .footer {
             text-align: center;
-            padding: 30px;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1rem;
-            background: rgba(15, 15, 35, 0.6);
-            border-top: 1px solid rgba(94, 53, 177, 0.4);
+            padding: 40px;
+            color: rgba(0, 0, 0, 0.6);
+            font-size: 1.2rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
         }
         
-        /* 响应式设计 - 手机设备 */
         @media (max-width: 768px) {
             body {
-                padding: 10px;
-                display: block;
+                padding: 15px;
             }
             
-            .container {
-                padding: 0;
+            .profile-header {
+                padding: 60px 20px 120px;
+                clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
             }
             
-            .profile-card {
-                border-radius: 20px;
-            }
-            
-            .header {
-                padding: 40px 20px 100px;
-            }
-            
-            .avatar-container {
-                width: 140px;
-                height: 140px;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-                margin-bottom: 8px;
-            }
-            
-            .tagline {
-                font-size: 1.1rem;
-                padding: 0 15px;
-            }
-            
-            .content {
-                padding: 70px 20px 30px;
-            }
-            
-            .bio {
-                padding: 20px 15px;
-                font-size: 1.1rem;
-                line-height: 1.7;
-                margin-bottom: 30px;
-            }
-            
-            .section-title {
-                font-size: 1.8rem;
-                margin: 30px 0 25px;
-            }
-            
-            .section-title::after {
-                width: 60px;
-                height: 3px;
-            }
-            
-            .contact-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .contact-card {
-                padding: 25px 15px;
-                border-radius: 15px;
-            }
-            
-            .contact-icon {
-                width: 70px;
-                height: 70px;
-                font-size: 1.8rem;
-                margin-bottom: 20px;
-            }
-            
-            .contact-title {
-                font-size: 1.4rem;
-                margin-bottom: 12px;
-            }
-            
-            .contact-info {
-                font-size: 1rem;
-                margin-bottom: 20px;
-            }
-            
-            .contact-link {
-                padding: 10px 25px;
-                font-size: 1rem;
-            }
-            
-            .blog-button {
-                width: 90%;
-                max-width: 300px;
-                padding: 14px 20px;
-                font-size: 1.1rem;
-                margin-top: 30px;
-            }
-            
-            .footer {
-                padding: 20px;
-                font-size: 0.9rem;
-            }
-            
-            .glow {
-                display: none;
-            }
-        }
-        
-        /* 平板设备优化 */
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .container {
-                max-width: 90%;
-            }
-            
-            .header {
-                padding: 50px 25px 110px;
+            .profile-header::after {
+                height: 60px;
             }
             
             .avatar-container {
@@ -535,31 +488,130 @@
             }
             
             h1 {
-                font-size: 2.5rem;
+                font-size: 2.6rem;
+                margin-bottom: 10px;
             }
             
             .tagline {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
+                padding: 0 15px;
             }
             
-            .content {
-                padding: 70px 30px 40px;
+            .profile-content {
+                padding: 80px 25px 35px;
+            }
+            
+            .bio-section {
+                padding: 25px 0 35px;
+                margin-bottom: 40px;
             }
             
             .bio {
-                padding: 25px;
+                font-size: 1.15rem;
+            }
+            
+            .section-title {
+                font-size: 2.0rem;
+                margin: 0 0 30px;
+            }
+            
+            .section-title::after {
+                width: 70px;
+                height: 4px;
+            }
+            
+            .contact-section, .social-section {
+                padding: 30px 20px;
+            }
+            
+            .contact-item {
+                padding: 15px;
+                gap: 15px;
+            }
+            
+            .contact-icon {
+                width: 55px;
+                height: 55px;
+                font-size: 1.6rem;
+            }
+            
+            .contact-title {
+                font-size: 1.3rem;
+            }
+            
+            .contact-detail {
                 font-size: 1.1rem;
             }
             
-            .contact-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 25px;
+            .social-card {
+                padding: 25px 20px;
             }
             
-            .blog-button {
-                width: 80%;
-                max-width: 350px;
+            .social-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 2.2rem;
             }
+            
+            .social-title {
+                font-size: 1.4rem;
+            }
+            
+            .social-desc {
+                font-size: 1.1rem;
+            }
+            
+            .social-link {
+                padding: 12px 25px;
+                font-size: 1.1rem;
+            }
+            
+            .footer {
+                padding: 25px;
+                font-size: 1.05rem;
+            }
+        }
+        
+        .wave {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            z-index: -1;
+        }
+        
+        .wave svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 150px;
+            animation: waveAnimation 10s linear infinite;
+        }
+        
+        @keyframes waveAnimation {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .wave .shape-fill {
+            fill: rgba(255, 255, 255, 0.3);
+        }
+        
+        .decoration {
+            position: fixed;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -568,9 +620,20 @@
     <div class="glow glow-1"></div>
     <div class="glow glow-2"></div>
     
+    <div class="decoration" style="top: 10%; left: 10%;"></div>
+    <div class="decoration" style="bottom: 15%; right: 15%; width: 200px; height: 200px;"></div>
+    
+    <div class="wave">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
+            <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" class="shape-fill"></path>
+            <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="shape-fill"></path>
+        </svg>
+    </div>
+    
     <div class="container">
-        <div class="profile-card">
-            <div class="header">
+        <div class="profile">
+            <div class="profile-header">
                 <div class="avatar-container">
                     <div class="avatar-frame"></div>
                     <div class="avatar"></div>
@@ -579,76 +642,112 @@
                 <p class="tagline">开发者 · 技术探索者 · 创新者</p>
             </div>
             
-            <div class="content">
-                <div class="bio">
-                    <p>你好！我是远容esh，一名充满热情的技术分享者。</p>
+            <div class="profile-content">
+                <div class="bio-section">
+                    <div class="bio">
+                        <p>大家好！我是远容esh，一名充满热情的技术分享者。</p>
                     <p>我常分享一些教程，偶尔发点自己的日常。</p>
                     <p>我希望通过分享和交流，与志同道合的人一起成长。</p>
-                </div>
-                
-                <h2 class="section-title">联系方式</h2>
-                
-                <div class="contact-grid">
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fab fa-zhihu"></i>
-                        </div>
-                        <h3 class="contact-title">知乎</h3>
-                        <p class="contact-info">分享技术观点与见解</p>
-                        <a href="https://www.zhihu.com/people/yuanrongesh" class="contact-link">访问我的知乎</a>
-                    </div>
-                    
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fab fa-weibo"></i>
-                        </div>
-                        <h3 class="contact-title">微博</h3>
-                        <p class="contact-info">关注我的日常动态</p>
-                        <a href="https://weibo.com/u/7939757133" class="contact-link">访问微博主页</a>
-                    </div>
-                    
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <h3 class="contact-title">电子邮件</h3>
-                        <p class="contact-info">syinzicheng1386ys@outlook.com</p>
-                        <a href="mailto:syinzicheng1386ys@outlook.com" class="contact-link">发送邮件</a>
-                    </div>
-                    
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fab fa-github"></i>
-                        </div>
-                        <h3 class="contact-title">GitHub</h3>
-                        <p class="contact-info">查看我的开源项目与代码</p>
-                        <a href="https://github.com/YuanRong1026" class="contact-link">访问GitHub</a>
                     </div>
                 </div>
                 
-                <a href="https://blog.51733074.xyz" class="blog-button">
-                    <i class="fas fa-external-link-alt"></i> 点击进入博客 (blog.51733074.xyz)
-                </a>
+                <div class="info-container">
+                    <div class="contact-section">
+                        <h2 class="section-title">联系方式</h2>
+                        <div class="contact-list">
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-info">
+                                    <div class="contact-title">电子邮件</div>
+                                    <div class="contact-detail">syinzicheng1386ys@outlook.com</div>
+                                    <div class="contact-detail">zicheng_0114@qq.com</div>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="contact-info">
+                                    <div class="contact-title">所在地</div>
+                                    <div class="contact-detail">中国 · 重庆</div>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-link"></i>
+                                </div>
+                                <div class="contact-info">
+                                    <div class="contact-title">个人网站</div>
+                                    <div class="contact-detail">https://www.51733074.xyz</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-section">
+                        <h2 class="section-title">社交媒体</h2>
+                        <div class="social-grid">
+                            <div class="social-card">
+                                <div class="social-icon">
+                                    <i class="fab fa-zhihu"></i>
+                                </div>
+                                <h3 class="social-title">知乎</h3>
+                                <p class="social-desc">分享技术观点与见解（已注销，之后复原）</p>
+                                <a href="https://www.zhihu.com/people/yuanrongesh" class="social-link">访问</a>
+                            </div>
+                            
+                            <div class="social-card">
+                                <div class="social-icon">
+                                    <i class="fab fa-weibo"></i>
+                                </div>
+                                <h3 class="social-title">微博</h3>
+                                <p class="social-desc">关注我的日常动态</p>
+                                <a href="https://weibo.com/u/7939757133" class="social-link">访问</a>
+                            </div>
+                            
+                            <div class="social-card">
+                                <div class="social-icon">
+                                    <i class="fab fa-github"></i>
+                                </div>
+                                <h3 class="social-title">GitHub</h3>
+                                <p class="social-desc">查看我的开源项目</p>
+                                <a href="https://github.com/YuanRong1026" class="social-link">访问</a>
+                            </div>
+                            
+                            <div class="social-card">
+                                <div class="social-icon">
+                                    <i class="fas fa-blog"></i>
+                                </div>
+                                <h3 class="social-title">个人博客</h3>
+                                <p class="social-desc">阅读我的技术文章</p>
+                                <a href="https://blog.51733074.xyz" class="social-link">访问</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <div class="footer">
-                <p>© 2025 远容esh | 遇见更好</p>
+                <p>© 2025 远容esh | 遇见更好的自己</p>
+                <p>创造 · 分享 · 成长</p>
             </div>
         </div>
     </div>
     
     <script>
-        // 创建粒子背景
         function createParticles() {
             const container = document.getElementById('particles');
-            const particleCount = 40;
+            const particleCount = 60;
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
                 
-                // 随机属性
-                const size = Math.random() * 10 + 3;
+                const size = Math.random() * 15 + 5;
                 const posX = Math.random() * 100;
                 const delay = Math.random() * 15;
                 const duration = Math.random() * 10 + 15;
@@ -660,11 +759,10 @@
                 particle.style.animationDelay = `${delay}s`;
                 particle.style.animationDuration = `${duration}s`;
                 
-                // 随机颜色
                 const colors = [
-                    'rgba(0, 229, 255, 0.7)',
-                    'rgba(94, 53, 177, 0.7)',
-                    'rgba(57, 73, 171, 0.7)'
+                    'rgba(126, 87, 194, 0.35)',
+                    'rgba(66, 165, 245, 0.35)',
+                    'rgba(0, 229, 255, 0.35)'
                 ];
                 particle.style.background = colors[Math.floor(Math.random() * colors.length)];
                 
@@ -672,9 +770,11 @@
             }
         }
         
-        // 页面加载时初始化
         document.addEventListener('DOMContentLoaded', function() {
             createParticles();
+            
+            const wave = document.querySelector('.wave svg');
+            wave.style.animation = 'waveAnimation 10s linear infinite';
         });
     </script>
 </body>
