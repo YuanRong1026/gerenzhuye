@@ -19,7 +19,7 @@
             --accent: #00e5ff;
             --light: #ffffff;
             --dark: #333;
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --transition: all 0.4 cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         body {
@@ -49,7 +49,7 @@
             position: absolute;
             border-radius: 50%;
             background: rgba(126, 87, 194, 0.2);
-            animation: float 15s infinite linear;
+            animation: float 15 infinite linear;
         }
         
         @keyframes float {
@@ -88,7 +88,7 @@
             position: relative;
             z-index: 2;
             padding: 15px;
-            animation: fadeInUp 0.8s ease-out forwards;
+            animation: fadeInUp 0.8 ease-out forwards;
         }
         
         @keyframes fadeInUp {
@@ -146,7 +146,7 @@
             height: 200px;
             margin: 0 auto 30px;
             z-index: 2;
-            animation: floatAvatar 6s ease-in-out infinite alternate;
+            animation: floatAvatar 6 ease-in-out infinite alternate;
         }
         
         @keyframes floatAvatar {
@@ -164,7 +164,7 @@
             border-radius: 50%;
             border: 5px solid var(--accent);
             box-shadow: 0 0 40px rgba(0, 229, 255, 0.5);
-            animation: pulse 4s infinite alternate;
+            animation: pulse 4 infinite alternate;
         }
         
         .avatar {
@@ -176,7 +176,7 @@
             background-position: center;
             position: relative;
             z-index: 1;
-            transition: transform 0.5s ease;
+            transition: transform 0.5 ease;
             filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
         }
         
@@ -201,7 +201,7 @@
             font-weight: 700;
             text-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
             letter-spacing: 1px;
-            animation: float-up 0.8s ease-out forwards;
+            animation: float-up 0.8 ease-out forwards;
             opacity: 0;
         }
         
@@ -211,7 +211,7 @@
             max-width: 700px;
             margin: 0 auto;
             font-weight: 300;
-            animation: float-up 0.8s ease-out 0.2s forwards;
+            animation: float-up 0.8 ease-out 0.2 forwards;
             opacity: 0;
         }
         
@@ -233,7 +233,7 @@
             font-size: 1.4rem;
             line-height: 1.9;
             color: #444;
-            animation: float-up 0.8s ease-out 0.4s forwards;
+            animation: float-up 0.8 ease-out 0.4 forwards;
             opacity: 0;
         }
         
@@ -258,13 +258,13 @@
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(5px);
             transition: var(--transition);
-            animation: float-up 0.8s ease-out forwards;
+            animation: float-up 0.8 ease-out forwards;
             opacity: 0;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
         
-        .contact-section { animation-delay: 0.5s; }
-        .social-section { animation-delay: 0.6s; }
+        .contact-section { animation-delay: 0.5; }
+        .social-section { animation-delay: 0.6; }
         
         .contact-section:hover, .social-section:hover {
             transform: translateY(-10px);
@@ -364,7 +364,7 @@
             padding: 35px 30px;
             text-align: center;
             transition: var(--transition);
-            animation: fadeIn 0.5s ease-out forwards;
+            animation: fadeIn 0.5 ease-out forwards;
             opacity: 0;
             display: flex;
             flex-direction: column;
@@ -377,10 +377,10 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        .social-card:nth-child(1) { animation-delay: 0.7s; }
-        .social-card:nth-child(2) { animation-delay: 0.8s; }
-        .social-card:nth-child(3) { animation-delay: 0.9s; }
-        .social-card:nth-child(4) { animation-delay: 1.0s; }
+        .social-card:nth-child(1) { animation-delay: 0.7; }
+        .social-card:nth-child(2) { animation-delay: 0.8; }
+        .social-card:nth-child(3) { animation-delay: 0.9; }
+        .social-card:nth-child(4) { animation-delay: 1.0; }
         
         .social-card:hover {
             transform: translateY(-15px);
@@ -446,7 +446,7 @@
             width: 0;
             height: 100%;
             background: linear-gradient(135deg, var(--accent), #00b8d4);
-            transition: width 0.5s ease;
+            transition: width 0.5 ease;
             z-index: -1;
         }
         
@@ -587,7 +587,7 @@
             display: block;
             width: calc(100% + 1.3px);
             height: 150px;
-            animation: waveAnimation 10s linear infinite;
+            animation: waveAnimation 10 linear infinite;
         }
         
         @keyframes waveAnimation {
@@ -605,7 +605,7 @@
             height: 150px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.15);
-            animation: rotate 20s linear infinite;
+            animation: rotate 20 linear infinite;
             z-index: -1;
         }
         
@@ -661,7 +661,6 @@
                                 </div>
                                 <div class="contact-info">
                                     <div class="contact-title">电子邮件</div>
-                                    <div class="contact-detail">syinzicheng1386ys@outlook.com</div>
                                     <div class="contact-detail">zicheng_0114@qq.com</div>
                                 </div>
                             </div>
@@ -682,7 +681,7 @@
                                 </div>
                                 <div class="contact-info">
                                     <div class="contact-title">个人网站</div>
-                                    <div class="contact-detail">https://www.51733074.xyz</div>
+                                    <div class="contact-detail">www.51733074.xyz</div>
                                 </div>
                             </div>
                         </div>
