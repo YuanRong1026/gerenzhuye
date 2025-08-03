@@ -19,7 +19,7 @@
             --accent: #00e5ff;
             --light: #ffffff;
             --dark: #333;
-            --transition: all 0.4 cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         body {
@@ -35,6 +35,7 @@
             padding: 20px;
         }
         
+        /* 粒子背景 */
         .particles {
             position: fixed;
             top: 0;
@@ -49,7 +50,7 @@
             position: absolute;
             border-radius: 50%;
             background: rgba(126, 87, 194, 0.2);
-            animation: float 15 infinite linear;
+            animation: float 15s infinite linear;
         }
         
         @keyframes float {
@@ -59,6 +60,7 @@
             100% { transform: translateY(-100vh) translateX(50px) scale(1.2); opacity: 0; }
         }
         
+        /* 背景光效 */
         .glow {
             position: fixed;
             width: 50vw;
@@ -88,7 +90,7 @@
             position: relative;
             z-index: 2;
             padding: 15px;
-            animation: fadeInUp 0.8 ease-out forwards;
+            animation: fadeInUp 0.8s ease-out forwards;
         }
         
         @keyframes fadeInUp {
@@ -104,18 +106,13 @@
         
         .profile {
             width: 100%;
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 25px;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
             overflow: hidden;
             position: relative;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.5);
-            transition: var(--transition);
-        }
-        
-        .profile:hover {
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
         }
         
         .profile-header {
@@ -134,19 +131,20 @@
             left: 0;
             width: 100%;
             height: 80px;
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 25px 25px 0 0;
             transform: translateY(50%);
             backdrop-filter: blur(5px);
         }
         
+        /* 头像动画 */
         .avatar-container {
             position: relative;
             width: 200px;
             height: 200px;
             margin: 0 auto 30px;
             z-index: 2;
-            animation: floatAvatar 6 ease-in-out infinite alternate;
+            animation: floatAvatar 6s ease-in-out infinite alternate;
         }
         
         @keyframes floatAvatar {
@@ -164,7 +162,7 @@
             border-radius: 50%;
             border: 5px solid var(--accent);
             box-shadow: 0 0 40px rgba(0, 229, 255, 0.5);
-            animation: pulse 4 infinite alternate;
+            animation: pulse 4s infinite alternate;
         }
         
         .avatar {
@@ -176,12 +174,7 @@
             background-position: center;
             position: relative;
             z-index: 1;
-            transition: transform 0.5 ease;
             filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
-        }
-        
-        .avatar-container:hover .avatar {
-            transform: scale(1.05);
         }
         
         @keyframes pulse {
@@ -201,7 +194,7 @@
             font-weight: 700;
             text-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
             letter-spacing: 1px;
-            animation: float-up 0.8 ease-out forwards;
+            animation: float-up 0.8s ease-out forwards;
             opacity: 0;
         }
         
@@ -211,7 +204,7 @@
             max-width: 700px;
             margin: 0 auto;
             font-weight: 300;
-            animation: float-up 0.8 ease-out 0.2 forwards;
+            animation: float-up 0.8s ease-out 0.2s forwards;
             opacity: 0;
         }
         
@@ -233,7 +226,7 @@
             font-size: 1.4rem;
             line-height: 1.9;
             color: #444;
-            animation: float-up 0.8 ease-out 0.4 forwards;
+            animation: float-up 0.8s ease-out 0.4s forwards;
             opacity: 0;
         }
         
@@ -244,32 +237,19 @@
             margin: 0 auto;
         }
         
-        @media (max-width: 992px) {
-            .info-container {
-                flex-direction: column;
-                gap: 40px;
-            }
-        }
-        
         .contact-section, .social-section {
             flex: 1;
             padding: 40px;
             border-radius: 20px;
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(5px);
-            transition: var(--transition);
-            animation: float-up 0.8 ease-out forwards;
+            animation: float-up 0.8s ease-out forwards;
             opacity: 0;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
         
-        .contact-section { animation-delay: 0.5; }
-        .social-section { animation-delay: 0.6; }
-        
-        .contact-section:hover, .social-section:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-        }
+        .contact-section { animation-delay: 0.5s; }
+        .social-section { animation-delay: 0.6s; }
         
         .section-title {
             text-align: center;
@@ -346,16 +326,11 @@
             color: #555;
         }
         
+        /* 社交媒体网格布局 */
         .social-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 30px;
-        }
-        
-        @media (max-width: 768px) {
-            .social-grid {
-                grid-template-columns: 1fr;
-            }
         }
         
         .social-card {
@@ -363,13 +338,13 @@
             border-radius: 20px;
             padding: 35px 30px;
             text-align: center;
-            transition: var(--transition);
-            animation: fadeIn 0.5 ease-out forwards;
+            animation: fadeIn 0.5s ease-out forwards;
             opacity: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             height: 100%;
+            transition: var(--transition);
         }
         
         @keyframes fadeIn {
@@ -377,14 +352,14 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        .social-card:nth-child(1) { animation-delay: 0.7; }
-        .social-card:nth-child(2) { animation-delay: 0.8; }
-        .social-card:nth-child(3) { animation-delay: 0.9; }
-        .social-card:nth-child(4) { animation-delay: 1.0; }
+        .social-card:nth-child(1) { animation-delay: 0.7s; }
+        .social-card:nth-child(2) { animation-delay: 0.8s; }
+        .social-card:nth-child(3) { animation-delay: 0.9s; }
+        .social-card:nth-child(4) { animation-delay: 1.0s; }
         
         .social-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
         }
         
         .social-icon {
@@ -434,7 +409,6 @@
             overflow: hidden;
             z-index: 1;
             border: none;
-            cursor: pointer;
             font-size: 1.2rem;
         }
         
@@ -446,12 +420,8 @@
             width: 0;
             height: 100%;
             background: linear-gradient(135deg, var(--accent), #00b8d4);
-            transition: width 0.5 ease;
+            transition: width 0.5s ease;
             z-index: -1;
-        }
-        
-        .social-link:hover {
-            box-shadow: 0 0 30px rgba(126, 87, 194, 0.5);
         }
         
         .social-link:hover::before {
@@ -468,13 +438,14 @@
             backdrop-filter: blur(5px);
         }
         
+        /* 响应式设计 - 手机设备 */
         @media (max-width: 768px) {
             body {
-                padding: 15px;
+                padding: 10px;
             }
             
             .profile-header {
-                padding: 60px 20px 120px;
+                padding: 50px 20px 100px;
                 clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
             }
             
@@ -483,35 +454,41 @@
             }
             
             .avatar-container {
-                width: 160px;
-                height: 160px;
+                width: 140px;
+                height: 140px;
             }
             
             h1 {
-                font-size: 2.6rem;
+                font-size: 2.2rem;
                 margin-bottom: 10px;
             }
             
             .tagline {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
                 padding: 0 15px;
             }
             
             .profile-content {
-                padding: 80px 25px 35px;
+                padding: 70px 20px 30px;
             }
             
             .bio-section {
-                padding: 25px 0 35px;
-                margin-bottom: 40px;
+                padding: 20px 0 30px;
+                margin-bottom: 30px;
             }
             
             .bio {
-                font-size: 1.15rem;
+                font-size: 1.1rem;
+                line-height: 1.7;
+            }
+            
+            .info-container {
+                flex-direction: column;
+                gap: 30px;
             }
             
             .section-title {
-                font-size: 2.0rem;
+                font-size: 1.8rem;
                 margin: 0 0 30px;
             }
             
@@ -521,7 +498,7 @@
             }
             
             .contact-section, .social-section {
-                padding: 30px 20px;
+                padding: 25px 20px;
             }
             
             .contact-item {
@@ -530,17 +507,22 @@
             }
             
             .contact-icon {
-                width: 55px;
-                height: 55px;
-                font-size: 1.6rem;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
             }
             
             .contact-title {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
             }
             
             .contact-detail {
-                font-size: 1.1rem;
+                font-size: 1.05rem;
+            }
+            
+            .social-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
             
             .social-card {
@@ -550,28 +532,91 @@
             .social-icon {
                 width: 70px;
                 height: 70px;
+                font-size: 2rem;
+            }
+            
+            .social-title {
+                font-size: 1.3rem;
+                margin-bottom: 15px;
+            }
+            
+            .social-desc {
+                font-size: 1.05rem;
+                margin-bottom: 20px;
+            }
+            
+            .social-link {
+                padding: 12px 25px;
+                font-size: 1.05rem;
+            }
+            
+            .footer {
+                padding: 25px 20px;
+                font-size: 1rem;
+            }
+        }
+        
+        /* 平板设备优化 */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .profile-header {
+                padding: 60px 25px 120px;
+            }
+            
+            .avatar-container {
+                width: 170px;
+                height: 170px;
+            }
+            
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .tagline {
+                font-size: 1.4rem;
+            }
+            
+            .profile-content {
+                padding: 80px 40px 40px;
+            }
+            
+            .bio {
+                font-size: 1.2rem;
+            }
+            
+            .contact-section, .social-section {
+                padding: 30px;
+            }
+            
+            .contact-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.8rem;
+            }
+            
+            .contact-title {
+                font-size: 1.3rem;
+            }
+            
+            .contact-detail {
+                font-size: 1.15rem;
+            }
+            
+            .social-icon {
+                width: 80px;
+                height: 80px;
                 font-size: 2.2rem;
             }
             
             .social-title {
-                font-size: 1.4rem;
+                font-size: 1.5rem;
             }
             
             .social-desc {
                 font-size: 1.1rem;
             }
-            
-            .social-link {
-                padding: 12px 25px;
-                font-size: 1.1rem;
-            }
-            
-            .footer {
-                padding: 25px;
-                font-size: 1.05rem;
-            }
         }
         
+        /* 波浪动画 */
         .wave {
             position: fixed;
             bottom: 0;
@@ -587,7 +632,7 @@
             display: block;
             width: calc(100% + 1.3px);
             height: 150px;
-            animation: waveAnimation 10 linear infinite;
+            animation: waveAnimation 10s linear infinite;
         }
         
         @keyframes waveAnimation {
@@ -598,21 +643,6 @@
         .wave .shape-fill {
             fill: rgba(255, 255, 255, 0.3);
         }
-        
-        .decoration {
-            position: fixed;
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.15);
-            animation: rotate 20 linear infinite;
-            z-index: -1;
-        }
-        
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
     </style>
 </head>
 <body>
@@ -620,9 +650,7 @@
     <div class="glow glow-1"></div>
     <div class="glow glow-2"></div>
     
-    <div class="decoration" style="top: 10%; left: 10%;"></div>
-    <div class="decoration" style="bottom: 15%; right: 15%; width: 200px; height: 200px;"></div>
-    
+    <!-- 波浪动画 -->
     <div class="wave">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
@@ -645,9 +673,9 @@
             <div class="profile-content">
                 <div class="bio-section">
                     <div class="bio">
-                        <p>大家好！我是远容esh，一名充满热情的技术分享者。</p>
-                    <p>我常分享一些教程，偶尔发点自己的日常。</p>
-                    <p>我希望通过分享和交流，与志同道合的人一起成长。</p>
+                       <p>大家好！我是远容esh，一名充满热情的技术分享者。</p>
+                       <p>我常分享一些教程，偶尔发点自己的日常。</p>
+                       <p>我希望通过分享和交流，与志同道合的人一起成长。</p>
                     </div>
                 </div>
                 
@@ -661,6 +689,7 @@
                                 </div>
                                 <div class="contact-info">
                                     <div class="contact-title">电子邮件</div>
+                                    <div class="contact-detail">syinzicheng1386ys@outlook.com</div>
                                     <div class="contact-detail">zicheng_0114@qq.com</div>
                                 </div>
                             </div>
@@ -681,7 +710,7 @@
                                 </div>
                                 <div class="contact-info">
                                     <div class="contact-title">个人网站</div>
-                                    <div class="contact-detail">www.51733074.xyz</div>
+                                    <div class="contact-detail">https://51733074.xyz</div>
                                 </div>
                             </div>
                         </div>
@@ -695,7 +724,7 @@
                                     <i class="fab fa-zhihu"></i>
                                 </div>
                                 <h3 class="social-title">知乎</h3>
-                                <p class="social-desc">分享技术观点与见解（已注销，之后复原）</p>
+                                <p class="social-desc">分享技术观点与见解</p>
                                 <a href="https://www.zhihu.com/people/yuanrongesh" class="social-link">访问</a>
                             </div>
                             
@@ -738,15 +767,17 @@
     </div>
     
     <script>
+        // 创建粒子背景
         function createParticles() {
             const container = document.getElementById('particles');
-            const particleCount = 60;
+            const particleCount = 40;
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
                 
-                const size = Math.random() * 15 + 5;
+                // 随机属性
+                const size = Math.random() * 12 + 3;
                 const posX = Math.random() * 100;
                 const delay = Math.random() * 15;
                 const duration = Math.random() * 10 + 15;
@@ -758,10 +789,11 @@
                 particle.style.animationDelay = `${delay}s`;
                 particle.style.animationDuration = `${duration}s`;
                 
+                // 随机颜色
                 const colors = [
-                    'rgba(126, 87, 194, 0.35)',
-                    'rgba(66, 165, 245, 0.35)',
-                    'rgba(0, 229, 255, 0.35)'
+                    'rgba(126, 87, 194, 0.3)',
+                    'rgba(66, 165, 245, 0.3)',
+                    'rgba(0, 229, 255, 0.3)'
                 ];
                 particle.style.background = colors[Math.floor(Math.random() * colors.length)];
                 
@@ -769,9 +801,11 @@
             }
         }
         
+        // 页面加载时初始化
         document.addEventListener('DOMContentLoaded', function() {
             createParticles();
             
+            // 添加波浪动画
             const wave = document.querySelector('.wave svg');
             wave.style.animation = 'waveAnimation 10s linear infinite';
         });
