@@ -1,4 +1,4 @@
-// 内联图片数据（避免CORS问题）
+// 内联图片数据
 const embeddedImageData = {
   "light": [
     { "id": 1, "url": "images/light/1.jpg", "description": "浅色1", "credit": "原神壁纸" },
@@ -21,6 +21,15 @@ const embeddedImageData = {
 const ImageAPI = {
   // 缓存图片列表
   imageCache: null,
+  // 切换锁定状态，防止重复切换
+  isSwitching: false,
+  // 当前主题
+  currentTheme: 'light',
+  // 已加载的图片缓存
+  loadedImages: {
+    light: null,
+    dark: null
+  },
   
   // 获取图片列表
   async getImageList() {
@@ -33,21 +42,34 @@ const ImageAPI = {
     return this.imageCache;
   },
   
-  // 获取随机图片
+  // 获取随机图片 - 确保不重复
   async getRandomImage(theme = 'light') {
     const imageData = await this.getImageList();
     
     if (!imageData || !imageData[theme] || imageData[theme].length === 0) {
-      console.log('使用回退图片');
       return this.getFallbackImage(theme, imageData);
     }
     
-    // 随机选择一张图片
-    const images = imageData[theme];
-    const randomIndex = Math.floor(Math.random() * images.length);
-    const selectedImage = images[randomIndex];
+    // 如果没有已加载的图片或需要强制刷新
+    if (!this.loadedImages[theme]) {
+      const images = imageData[theme];
+      const randomIndex = Math.floor(Math.random() * images.length);
+      this.loadedImages[theme] = images[randomIndex];
+    }
     
-    return selectedImage;
+    return this.loadedImages[theme];
+  },
+  
+  // 强制刷新当前主题的图片
+  async refreshCurrentThemeImage() {
+    const imageData = await this.getImageList();
+    const theme = this.currentTheme;
+    
+    if (imageData && imageData[theme] && imageData[theme].length > 0) {
+      const images = imageData[theme];
+      const randomIndex = Math.floor(Math.random() * images.length);
+      this.loadedImages[theme] = images[randomIndex];
+    }
   },
   
   // 获取回退图片
@@ -77,32 +99,47 @@ const ImageAPI = {
     });
   },
   
-  // 使用双背景层实现丝滑切换
-  async switchBackgroundWithAnimation(theme = 'light') {
+  // 使用双背景层实现丝滑切换 - 修复版
+  async switchBackgroundWithAnimation(targetTheme = null) {
+    // 如果正在切换中，直接返回
+    if (this.isSwitching) {
+      return;
+    }
+    
+    // 锁定切换状态
+    this.isSwitching = true;
+    
     const currentBg = document.querySelector('.current-background');
     const nextBg = document.querySelector('.next-background');
     
     if (!currentBg || !nextBg) {
-      console.error('找不到背景层元素');
+      this.isSwitching = false;
       return;
     }
     
     try {
+      // 确定目标主题
+      let themeToLoad;
+      if (targetTheme) {
+        themeToLoad = targetTheme;
+        this.currentTheme = targetTheme;
+      } else {
+        themeToLoad = this.currentTheme;
+      }
+      
       // 获取新图片信息
-      const imageInfo = await this.getRandomImage(theme);
+      const imageInfo = await this.getRandomImage(themeToLoad);
       
       if (!imageInfo || !imageInfo.url) {
         throw new Error('无法获取图片URL');
       }
       
-      console.log(`加载${theme}主题图片:`, imageInfo.description);
-      
       // 预加载新图片
       try {
         await this.preloadImage(imageInfo.url);
       } catch (error) {
-        console.warn('图片预加载失败，使用回退方案:', error);
-        const fallbackInfo = this.getFallbackImage(theme, await this.getImageList());
+        // 图片预加载失败，使用回退方案
+        const fallbackInfo = this.getFallbackImage(themeToLoad, await this.getImageList());
         imageInfo.url = fallbackInfo.url;
       }
       
@@ -121,10 +158,19 @@ const ImageAPI = {
       currentBg.style.backgroundImage = `url('${imageInfo.url}')`;
       currentBg.style.opacity = '1';
       
+      // 更新当前主题
+      this.currentTheme = themeToLoad;
+      
     } catch (error) {
-      console.error('切换背景失败:', error);
+      // 错误处理
+      const theme = targetTheme || this.currentTheme;
       const fallbackInfo = this.getFallbackImage(theme, await this.getImageList());
       currentBg.style.backgroundImage = `url('${fallbackInfo.url}')`;
+    } finally {
+      // 解锁切换状态
+      setTimeout(() => {
+        this.isSwitching = false;
+      }, 300);
     }
   },
   
@@ -133,9 +179,11 @@ const ImageAPI = {
     const currentBg = document.querySelector('.current-background');
     
     if (!currentBg) {
-      console.error('找不到背景层元素');
       return;
     }
+    
+    // 设置初始主题
+    this.currentTheme = theme;
     
     try {
       const imageInfo = await this.getRandomImage(theme);
@@ -144,13 +192,11 @@ const ImageAPI = {
         throw new Error('无法获取图片URL');
       }
       
-      console.log(`初始化${theme}主题背景:`, imageInfo.description);
-      
       // 预加载图片
       try {
         await this.preloadImage(imageInfo.url);
       } catch (error) {
-        console.warn('图片预加载失败，使用回退方案:', error);
+        // 图片预加载失败，使用回退方案
         const fallbackInfo = this.getFallbackImage(theme, await this.getImageList());
         imageInfo.url = fallbackInfo.url;
       }
@@ -159,7 +205,7 @@ const ImageAPI = {
       currentBg.style.backgroundImage = `url('${imageInfo.url}')`;
       
     } catch (error) {
-      console.error('初始化背景失败:', error);
+      // 错误处理
       const fallbackInfo = this.getFallbackImage(theme, await this.getImageList());
       currentBg.style.backgroundImage = `url('${fallbackInfo.url}')`;
     }
@@ -169,8 +215,8 @@ const ImageAPI = {
 // 页面加载动画
 document.addEventListener('DOMContentLoaded', function() {
   console.log('%c 👋 欢迎来到远容esh的个人主页！', 'color: #3498db; font-size: 16px; font-weight: bold;');
-  console.log('%c 远容esh个人主页，版本: 3.2，作者: 远容esh，更新日期: 2026年2月6日 22:50', 'color: #7f8c8d; font-size: 14px;')
-  console.log('%c 已开源到GitHub，仓库gerenzhuye', 'color:rgb(136, 136, 136); font-size: 12px;')
+  console.log('%c 远容esh个人主页，版本: 3.3，作者: 远容esh，更新日期: 2026年2月7日 00:15', 'color: #7f8c8d; font-size: 14px;');
+  console.log('%c 已开源到GitHub，仓库gerenzhuye', 'color:rgb(136, 136, 136); font-size: 12px;');
   
   // 为卡片添加延迟出现效果
   const cards = document.querySelectorAll('.contact-card, .blog-card, .intro-section');
@@ -222,16 +268,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // 初始化背景图片
 async function initializeBackground() {
-  console.log('图片API初始化...');
-  
   // 获取当前主题
   const savedTheme = localStorage.getItem('theme') || 'light';
   const currentTheme = document.documentElement.getAttribute('data-theme') || savedTheme;
   
   // 初始加载背景图片
   await ImageAPI.initializeBackground(currentTheme);
-  
-  console.log('图片API初始化完成');
 }
 
 // 返回顶部按钮
@@ -268,40 +310,43 @@ function initThemeToggle() {
   if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
     document.documentElement.setAttribute('data-theme', 'dark');
     themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    ImageAPI.currentTheme = 'dark';
   } else {
     document.documentElement.removeAttribute('data-theme');
     themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    ImageAPI.currentTheme = 'light';
   }
   
-  // 主题切换点击事件
+  // 主题切换点击事件 - 修复版
   themeToggle.addEventListener('click', async () => {
+    // 如果正在切换中，直接返回
+    if (ImageAPI.isSwitching) {
+      return;
+    }
+    
     const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
     
-    // 添加按钮点击动画
-    themeToggle.style.transform = 'scale(0.9)';
-    setTimeout(() => {
-      themeToggle.style.transform = 'scale(1)';
-    }, 150);
-    
+    // 确定目标主题
+    let targetTheme;
     if (isDark) {
       // 切换到亮色主题
       document.documentElement.removeAttribute('data-theme');
       localStorage.setItem('theme', 'light');
       themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-      console.log('%c 🌞 已切换为亮色主题', 'color: #f39c12; font-size: 14px;');
-      
-      // 使用丝滑动画切换背景图片
-      await ImageAPI.switchBackgroundWithAnimation('light');
+      targetTheme = 'light';
     } else {
       // 切换到暗色主题
       document.documentElement.setAttribute('data-theme', 'dark');
       localStorage.setItem('theme', 'dark');
       themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-      console.log('%c 🌙 已切换为暗色主题', 'color: #3498db; font-size: 14px;');
-      
-      // 使用丝滑动画切换背景图片
-      await ImageAPI.switchBackgroundWithAnimation('dark');
+      targetTheme = 'dark';
     }
+    
+    // 强制刷新目标主题的图片
+    await ImageAPI.refreshCurrentThemeImage();
+    
+    // 使用丝滑动画切换背景图片
+    await ImageAPI.switchBackgroundWithAnimation(targetTheme);
   });
 }
 
@@ -309,7 +354,17 @@ function initThemeToggle() {
 const observer = new MutationObserver(function(mutations) {
   mutations.forEach(async function(mutation) {
     if (mutation.attributeName === 'data-theme') {
-      const theme = document.documentElement.getAttribute('data-theme');
+      const theme = document.documentElement.getAttribute('data-theme') || 'light';
+      
+      // 如果正在切换中，直接返回
+      if (ImageAPI.isSwitching) {
+        return;
+      }
+      
+      // 刷新目标主题的图片
+      await ImageAPI.refreshCurrentThemeImage();
+      
+      // 使用丝滑动画切换背景图片
       await ImageAPI.switchBackgroundWithAnimation(theme);
     }
   });
