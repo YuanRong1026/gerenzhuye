@@ -1,4 +1,11 @@
-/* 基础重置与变量定义 - 蓝色调 */
+/* ===========================================
+   远容esh个人网站
+   版本: 3.2
+   作者: 远容esh
+   日期: 2026年
+   =========================================== */
+
+/* 基础与变量定义 */
 :root {
     --primary-color: #3498db;
     --secondary-color: #2c80b4;
@@ -6,11 +13,11 @@
     --text-color: #2c3e50;
     --text-light: #7f8c8d;
     --bg-color: #f8fafc;
-    --glass-bg: rgba(255, 255, 255, 0.85);
-    --glass-border: rgba(255, 255, 255, 0.25);
-    --shadow-light: rgba(52, 152, 219, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.15);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --glass-highlight: rgba(255, 255, 255, 0.6);
     --transition: all 0.3s ease;
-    --border-radius: 16px;
+    --border-radius: 20px;
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
     --spacing-md: 2rem;
@@ -43,40 +50,50 @@ body {
     padding: var(--spacing-md);
 }
 
-
-/* 背景效果 */
-.background-effect {
+/* 背景容器 - 双背景层实现丝滑切换 */
+.background-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: -1;
-    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    overflow: hidden;
 }
 
-.background-effect::before {
-    content: '';
+.background-layer {
     position: absolute;
-    width: 400px;
-    height: 400px;
-    border-radius: 50%;
-    background: linear-gradient(120deg, rgba(52, 152, 219, 0.12), rgba(92, 173, 226, 0.12));
-    top: 10%;
-    left: 10%;
-    filter: blur(60px);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), filter 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: blur(0px);
 }
 
-.background-effect::after {
+.current-background {
+    opacity: 1;
+    z-index: 1;
+}
+
+.next-background {
+    opacity: 0;
+    z-index: 0;
+}
+
+/* 为背景添加半透明覆盖层，提高文字可读性 */
+.background-layer::before {
     content: '';
     position: absolute;
-    width: 500px;
-    height: 500px;
-    border-radius: 50%;
-    background: linear-gradient(120deg, rgba(92, 173, 226, 0.12), rgba(52, 152, 219, 0.12));
-    bottom: 10%;
-    right: 10%;
-    filter: blur(60px);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.6);
+    transition: background-color 0.8s ease;
 }
 
 /* 主容器 */
@@ -102,57 +119,22 @@ body {
     gap: var(--spacing-md);
 }
 
-/* 头像容器 */
+/* 头像容器 - 简洁版本 */
 .avatar-container {
     width: 180px;
     height: 180px;
     border-radius: 50%;
-    position: relative;
-    padding: 8px;
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px) saturate(200%);
-    -webkit-backdrop-filter: blur(20px) saturate(200%);
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 15px 50px var(--shadow-light);
-    box-sizing: content-box;
-}
-
-.avatar-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    overflow: hidden;
-    border-radius: 50%;
+    padding: 6px;
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    transition: var(--transition);
 }
 
 .avatar {
     width: 100%;
     height: 100%;
+    border-radius: 50%;
     object-fit: cover;
-    border-radius: 50%;
-    transition: var(--transition);
-}
-
-.avatar-border {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: 3px solid transparent;
-    background: linear-gradient(45deg, var(--primary-color), var(--accent-color)) border-box;
-    mask: 
-        linear-gradient(#fff 0 0) padding-box, 
-        linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-    -webkit-mask: 
-        linear-gradient(#fff 0 0) padding-box, 
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    transition: var(--transition);
-    box-sizing: border-box;
+    border: 3px solid white;
 }
 
 .header-content {
@@ -175,27 +157,6 @@ body {
     display: inline-block;
 }
 
-.logo-highlight::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: var(--primary-color);
-    border-radius: 2px;
-    transform: scaleX(0);
-    transform-origin: right;
-    animation: underline 1.5s ease forwards 0.5s;
-}
-
-@keyframes underline {
-    to {
-        transform: scaleX(1);
-        transform-origin: left;
-    }
-}
-
 .tagline {
     font-size: 1.1rem;
     color: var(--text-light);
@@ -213,14 +174,65 @@ body {
     gap: var(--spacing-xl);
 }
 
-/* 玻璃态效果 */
+a{
+    text-decoration: none;
+}
+
+/* 液态玻璃质感效果 */
 .glass {
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px) saturate(200%);
-    -webkit-backdrop-filter: blur(20px) saturate(200%);
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0.05) 100%
+    );
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
-    box-shadow: 0 10px 40px var(--shadow-light);
+    border-top: 1px solid rgba(255, 255, 255, 0.6);
+    border-left: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: var(--border-radius);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 液态玻璃内部光泽效果 */
+.glass::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.4) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    z-index: 1;
+}
+
+/* 液态玻璃外部光泽效果 */
+.glass::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle at 30% 30%,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0) 60%
+    );
+    z-index: 0;
+}
+
+/* Firefox 兼容性修复：如果没有 backdrop-filter 支持，使用半透明背景 */
+@supports not ((-webkit-backdrop-filter: blur(20px)) or (backdrop-filter: blur(20px))) {
+    .glass {
+        background: rgba(255, 255, 255, 0.3);
+    }
 }
 
 /* 介绍部分 */
@@ -283,12 +295,31 @@ body {
     align-items: center;
 }
 
+/* 关于我部分 */
+.about-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.about-content {
+    width: 100%;
+    max-width: 900px;
+    padding: var(--spacing-lg) var(--spacing-xl);
+    margin-top: var(--spacing-md);
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* 统一标题样式 */
 .section-title {
     font-size: 2.2rem;
     font-weight: 600;
     margin-bottom: var(--spacing-lg);
     text-align: center;
     position: relative;
+    color: var(--text-color);
 }
 
 .section-title::after {
@@ -333,6 +364,7 @@ body {
     background: var(--primary-color);
     color: white;
     margin: 0 auto var(--spacing-sm);
+    transition: var(--transition);
 }
 
 .contact-title {
@@ -362,10 +394,6 @@ body {
     transition: var(--transition);
     border: none;
     cursor: pointer;
-}
-
-.contact-link:hover {
-    background: var(--secondary-color);
 }
 
 /* 邮箱卡片特殊样式 */
@@ -410,6 +438,7 @@ body {
     border-radius: 50%;
     background: var(--primary-color);
     color: white;
+    transition: var(--transition);
 }
 
 .blog-text {
@@ -444,8 +473,49 @@ body {
     white-space: nowrap;
 }
 
-.blog-link:hover {
-    background: var(--secondary-color);
+/* 关于我内容样式 */
+.about-content h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: var(--spacing-lg) 0 var(--spacing-sm) 0;
+    color: var(--secondary-color);
+}
+
+.about-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-color);
+}
+
+.about-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* 段落首行缩进 */
+.about-content p:not(.highlight) {
+    text-indent: 2em;
+}
+
+/* 列表样式 */
+.about-content ul {
+    margin-left: 2em;
+    margin-bottom: var(--spacing-sm);
+}
+
+.about-content li {
+    margin-bottom: var(--spacing-xs);
+    line-height: 1.7;
+    position: relative;
+    padding-left: 1.2em;
+}
+
+.about-content li::before {
+    content: '•';
+    color: var(--primary-color);
+    font-weight: bold;
+    position: absolute;
+    left: 0;
 }
 
 /* 页脚样式 */
@@ -474,6 +544,36 @@ body {
     width: 30px;
     height: auto;
     filter: grayscale(30%);
+    transition: var(--transition);
+}
+
+/* 返回顶部按钮 */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: var(--transition);
+    z-index: 100;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
 /* 响应式设计 */
@@ -536,6 +636,30 @@ body {
     .intro-section {
         padding: var(--spacing-md);
     }
+    
+    .about-content {
+        padding: var(--spacing-md);
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .about-content h3 {
+        font-size: 1.3rem;
+    }
+    
+    .about-content p {
+        font-size: 1rem;
+    }
+    
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -544,7 +668,7 @@ body {
         height: 120px;
     }
     
-    .contact-card, .blog-card {
+    .contact-card, .blog-card, .about-content {
         padding: var(--spacing-md);
     }
     
@@ -565,5 +689,221 @@ body {
     .contact-link, .blog-link {
         padding: 10px 20px;
         font-size: 1rem;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+    }
+    
+    .about-content h3 {
+        font-size: 1.2rem;
+    }
+}
+
+/* 主题切换按钮 */
+.theme-toggle {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    z-index: 1000;
+    transition: var(--transition);
+}
+
+/* 黑色主题样式 */
+[data-theme="dark"] {
+    --primary-color: #5dade2;
+    --secondary-color: #3498db;
+    --accent-color: #85c1e9;
+    --text-color: #ecf0f1;
+    --text-light: #bdc3c7;
+    --bg-color: #1a1a2e;
+    --glass-bg: rgba(30, 30, 46, 0.2);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --glass-highlight: rgba(255, 255, 255, 0.25);
+}
+
+/* 暗色主题下的背景覆盖层 */
+[data-theme="dark"] .background-layer::before {
+    background-color: rgba(0, 0, 0, 0.6); /* 黑色半透明覆盖层 */
+}
+
+[data-theme="dark"] .avatar-container {
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+}
+
+[data-theme="dark"] .avatar {
+    border: 3px solid rgba(30, 30, 46, 0.9);
+}
+
+[data-theme="dark"] .glass {
+    background: linear-gradient(
+        135deg,
+        rgba(30, 30, 46, 0.2) 0%,
+        rgba(40, 40, 60, 0.1) 100%
+    );
+    border: 1px solid var(--glass-border);
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    border-left: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+[data-theme="dark"] .glass::before {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+}
+
+[data-theme="dark"] .glass::after {
+    background: radial-gradient(
+        circle at 30% 30%,
+        rgba(100, 150, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0) 60%
+    );
+}
+
+[data-theme="dark"] .logo {
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .contact-link,
+[data-theme="dark"] .blog-link,
+[data-theme="dark"] .back-to-top,
+[data-theme="dark"] .theme-toggle {
+    background: var(--primary-color);
+}
+
+/* Firefox 兼容性修复：如果没有 backdrop-filter 支持，使用半透明背景 */
+@supports not ((-webkit-backdrop-filter: blur(20px)) or (backdrop-filter: blur(20px))) {
+    [data-theme="dark"] .glass {
+        background: rgba(30, 30, 46, 0.4);
+    }
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .theme-toggle {
+        top: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+    }
+}
+
+.about-page-card {
+    padding: var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 900px;
+    margin-top: var(--spacing-lg);
+}
+
+.about-page-content {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+}
+
+.about-page-icon {
+    font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: white;
+    transition: var(--transition);
+}
+
+.about-page-text {
+    flex: 1;
+}
+
+.about-page-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+}
+
+.about-page-desc {
+    font-size: 1.1rem;
+    color: var(--text-light);
+}
+
+/* 关于页面链接按钮 */
+.about-page-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 28px;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .about-page-card {
+        flex-direction: column;
+        gap: var(--spacing-md);
+        text-align: center;
+    }
+    
+    .about-page-content {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+    
+    .about-page-link {
+        align-self: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-page-card {
+        padding: var(--spacing-md);
+    }
+    
+    .about-page-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 2rem;
+    }
+    
+    .about-page-title {
+        font-size: 1.5rem;
+    }
+    
+    .about-page-desc {
+        font-size: 1rem;
+    }
+    
+    .about-page-link {
+        padding: 10px 20px;
+        font-size: 0.95rem;
     }
 }
