@@ -1,6 +1,6 @@
 /* ===========================================
    远容esh个人网站
-   版本: 3.2
+   版本: 3.3
    作者: 远容esh
    日期: 2026年
    =========================================== */
@@ -174,11 +174,13 @@ body {
     gap: var(--spacing-xl);
 }
 
-a{
+a {
     text-decoration: none;
+    color: inherit;
+    cursor: pointer;
 }
 
-/* 液态玻璃质感效果 */
+/* 液态玻璃质感效果 - 修复版 */
 .glass {
     background: linear-gradient(
         135deg,
@@ -192,10 +194,10 @@ a{
     border-left: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: var(--border-radius);
     position: relative;
-    overflow: hidden;
+    overflow: hidden; /* 保持hidden，但确保子元素定位正确 */
 }
 
-/* 液态玻璃内部光泽效果 */
+/* 液态玻璃内部光泽效果 - 确保在底层 */
 .glass::before {
     content: '';
     position: absolute;
@@ -209,10 +211,10 @@ a{
         rgba(255, 255, 255, 0.4) 50%,
         rgba(255, 255, 255, 0) 100%
     );
-    z-index: 1;
+    z-index: 0; /* 设为0，确保在底层 */
 }
 
-/* 液态玻璃外部光泽效果 */
+/* 液态玻璃外部光泽效果 - 确保在底层 */
 .glass::after {
     content: '';
     position: absolute;
@@ -225,7 +227,7 @@ a{
         rgba(255, 255, 255, 0.1) 0%,
         rgba(255, 255, 255, 0) 60%
     );
-    z-index: 0;
+    z-index: 0; /* 设为0，确保在底层 */
 }
 
 /* Firefox 兼容性修复：如果没有 backdrop-filter 支持，使用半透明背景 */
@@ -241,6 +243,8 @@ a{
     max-width: 800px;
     width: 100%;
     text-align: center;
+    position: relative;
+    z-index: 1; /* 确保在最上层 */
 }
 
 .main-title {
@@ -251,6 +255,8 @@ a{
     align-items: center;
     justify-content: center;
     gap: var(--spacing-xs);
+    position: relative;
+    z-index: 2;
 }
 
 .wave {
@@ -274,17 +280,28 @@ a{
 .intro-text {
     font-size: 1.2rem;
     line-height: 1.8;
+    position: relative;
+    z-index: 2;
 }
 
 .intro-text p {
     margin-bottom: var(--spacing-sm);
 }
 
+.highlight-link {
+    display: block;
+    margin-top: var(--spacing-md);
+    position: relative;
+    z-index: 2;
+}
+
 .highlight {
     color: var(--primary-color);
     font-weight: 600;
     font-size: 1.3rem;
-    margin-top: var(--spacing-md);
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
 }
 
 /* 联系部分 */
@@ -310,6 +327,8 @@ a{
     margin-top: var(--spacing-md);
     opacity: 0;
     transform: translateY(20px);
+    position: relative;
+    z-index: 1;
 }
 
 /* 统一标题样式 */
@@ -320,6 +339,7 @@ a{
     text-align: center;
     position: relative;
     color: var(--text-color);
+    z-index: 2;
 }
 
 .section-title::after {
@@ -332,6 +352,7 @@ a{
     height: 3px;
     background: var(--primary-color);
     border-radius: 2px;
+    z-index: 2;
 }
 
 /* 联系卡片网格 */
@@ -342,19 +363,30 @@ a{
     margin-bottom: var(--spacing-xl);
     width: 100%;
     max-width: 1000px;
+    position: relative;
+    z-index: 1;
 }
 
-/* 联系卡片 */
+/* 联系卡片 - 修复版 */
 .contact-card {
     padding: var(--spacing-lg);
     text-align: center;
     position: relative;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    min-height: 320px;
+}
+
+.contact-card * {
+    position: relative;
+    z-index: 2;
 }
 
 .contact-icon {
     font-size: 2.5rem;
-    margin-bottom: var(--spacing-sm);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -363,23 +395,27 @@ a{
     border-radius: 50%;
     background: var(--primary-color);
     color: white;
-    margin: 0 auto var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
     transition: var(--transition);
+    z-index: 3;
 }
 
 .contact-title {
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: var(--spacing-xs);
+    z-index: 3;
 }
 
 .contact-desc {
     color: var(--text-light);
     margin-bottom: var(--spacing-md);
     font-size: 0.95rem;
+    flex-grow: 1;
+    z-index: 3;
 }
 
-/* 按钮 */
+/* 按钮 - 修复版，移除所有悬停效果 */
 .contact-link {
     display: inline-flex;
     align-items: center;
@@ -394,6 +430,23 @@ a{
     transition: var(--transition);
     border: none;
     cursor: pointer;
+    z-index: 10;
+    position: relative;
+    pointer-events: auto;
+    width: auto;
+    margin-top: auto;
+}
+
+/* 移除链接悬停效果 */
+.contact-link:hover,
+.blog-link:hover,
+.about-page-link:hover,
+.back-to-top:hover,
+.theme-toggle:hover,
+.highlight-link:hover .highlight {
+    background: var(--primary-color);
+    color: white;
+    transform: none;
 }
 
 /* 邮箱卡片特殊样式 */
@@ -404,28 +457,37 @@ a{
     width: 100%;
     max-width: 800px;
     margin-bottom: var(--spacing-xl);
+    position: relative;
+    z-index: 1;
 }
 
 .contact-card.wide {
     width: 100%;
+    min-height: 280px;
 }
 
-/* 博客卡片特殊样式 */
+/* 博客卡片特殊样式 - 修复版 */
 .blog-card {
     padding: var(--spacing-lg);
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: relative;
-    overflow: hidden;
     width: 100%;
     max-width: 1000px;
+    min-height: 180px;
+}
+
+.blog-card * {
+    position: relative;
+    z-index: 2;
 }
 
 .blog-content {
     display: flex;
     align-items: center;
     gap: var(--spacing-lg);
+    flex: 1;
 }
 
 .blog-icon {
@@ -439,25 +501,30 @@ a{
     background: var(--primary-color);
     color: white;
     transition: var(--transition);
+    flex-shrink: 0;
+    z-index: 3;
 }
 
 .blog-text {
     flex: 1;
+    z-index: 3;
 }
 
 .blog-title {
     font-size: 2rem;
     font-weight: 700;
     margin-bottom: var(--spacing-xs);
+    z-index: 3;
 }
 
 .blog-desc {
     font-size: 1.2rem;
     color: var(--text-light);
     max-width: 600px;
+    z-index: 3;
 }
 
-/* 博客链接按钮 */
+/* 博客链接按钮 - 修复版，移除悬停效果 */
 .blog-link {
     display: inline-flex;
     align-items: center;
@@ -471,6 +538,9 @@ a{
     font-size: 1.1rem;
     transition: var(--transition);
     white-space: nowrap;
+    z-index: 10;
+    position: relative;
+    pointer-events: auto;
 }
 
 /* 关于我内容样式 */
@@ -479,6 +549,7 @@ a{
     font-weight: 600;
     margin: var(--spacing-lg) 0 var(--spacing-sm) 0;
     color: var(--secondary-color);
+    z-index: 2;
 }
 
 .about-content p {
@@ -486,6 +557,7 @@ a{
     line-height: 1.8;
     margin-bottom: var(--spacing-sm);
     color: var(--text-color);
+    z-index: 2;
 }
 
 .about-content p:last-child {
@@ -501,6 +573,7 @@ a{
 .about-content ul {
     margin-left: 2em;
     margin-bottom: var(--spacing-sm);
+    z-index: 2;
 }
 
 .about-content li {
@@ -508,6 +581,7 @@ a{
     line-height: 1.7;
     position: relative;
     padding-left: 1.2em;
+    z-index: 2;
 }
 
 .about-content li::before {
@@ -526,6 +600,8 @@ a{
     width: 100%;
     display: flex;
     justify-content: center;
+    position: relative;
+    z-index: 2;
 }
 
 .signature {
@@ -533,11 +609,18 @@ a{
     flex-direction: column;
     align-items: center;
     gap: var(--spacing-sm);
+    z-index: 2;
 }
 
 .copyright {
     color: var(--text-light);
     font-size: 1rem;
+    z-index: 2;
+}
+
+.signature-img {
+    position: relative;
+    z-index: 3;
 }
 
 .signature-img img {
@@ -545,6 +628,11 @@ a{
     height: auto;
     filter: grayscale(30%);
     transition: var(--transition);
+    cursor: pointer;
+}
+
+.signature-img img:hover {
+    filter: grayscale(0%);
 }
 
 /* 返回顶部按钮 */
@@ -631,6 +719,7 @@ a{
     
     .blog-link {
         align-self: center;
+        margin-top: var(--spacing-sm);
     }
     
     .intro-section {
@@ -718,6 +807,7 @@ a{
     font-size: 1.2rem;
     z-index: 1000;
     transition: var(--transition);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* 黑色主题样式 */
@@ -785,6 +875,18 @@ a{
     background: var(--primary-color);
 }
 
+/* 移除暗色主题下的链接悬停效果 */
+[data-theme="dark"] .contact-link:hover,
+[data-theme="dark"] .blog-link:hover,
+[data-theme="dark"] .about-page-link:hover,
+[data-theme="dark"] .back-to-top:hover,
+[data-theme="dark"] .theme-toggle:hover,
+[data-theme="dark"] .highlight-link:hover .highlight {
+    background: var(--primary-color);
+    color: white;
+    transform: none;
+}
+
 /* Firefox 兼容性修复：如果没有 backdrop-filter 支持，使用半透明背景 */
 @supports not ((-webkit-backdrop-filter: blur(20px)) or (backdrop-filter: blur(20px))) {
     [data-theme="dark"] .glass {
@@ -803,22 +905,29 @@ a{
     }
 }
 
+/* 关于页面卡片 - 修复版 */
 .about-page-card {
     padding: var(--spacing-lg);
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: relative;
-    overflow: hidden;
     width: 100%;
     max-width: 900px;
     margin-top: var(--spacing-lg);
+    min-height: 150px;
+}
+
+.about-page-card * {
+    position: relative;
+    z-index: 2;
 }
 
 .about-page-content {
     display: flex;
     align-items: center;
     gap: var(--spacing-lg);
+    flex: 1;
 }
 
 .about-page-icon {
@@ -832,24 +941,29 @@ a{
     background: var(--primary-color);
     color: white;
     transition: var(--transition);
+    flex-shrink: 0;
+    z-index: 3;
 }
 
 .about-page-text {
     flex: 1;
+    z-index: 3;
 }
 
 .about-page-title {
     font-size: 1.8rem;
     font-weight: 600;
     margin-bottom: var(--spacing-xs);
+    z-index: 3;
 }
 
 .about-page-desc {
     font-size: 1.1rem;
     color: var(--text-light);
+    z-index: 3;
 }
 
-/* 关于页面链接按钮 */
+/* 关于页面链接按钮 - 修复版，移除悬停效果 */
 .about-page-link {
     display: inline-flex;
     align-items: center;
@@ -863,6 +977,9 @@ a{
     font-size: 1rem;
     transition: var(--transition);
     white-space: nowrap;
+    z-index: 10;
+    position: relative;
+    pointer-events: auto;
 }
 
 /* 响应式设计 */
@@ -880,6 +997,7 @@ a{
     
     .about-page-link {
         align-self: center;
+        margin-top: var(--spacing-sm);
     }
 }
 
